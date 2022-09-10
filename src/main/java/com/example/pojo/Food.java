@@ -16,5 +16,10 @@ public class Food {
     private int id;
     private String food;
     private float value;
+    private int user1ate;
+    private int user2ate;
+    private int user3ate;
+    private int user4ate;
+    private int user5ate;
 
 }

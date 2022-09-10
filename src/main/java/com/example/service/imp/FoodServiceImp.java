@@ -32,18 +32,10 @@ public class FoodServiceImp implements FoodService {
         }
 
         HashMap result = new HashMap();
-//        List<String> foods=new ArrayList<>();
-//        List<Float> values=new ArrayList<>();
-//        List<List<?>> result=new ArrayList<>();
 
         for (Food food : foodList) {
             result.put(food.getFood(),food.getValue());
-//            foods.add(food.getFood());
-//            values.add(food.getValue());
         }
-
-//        result.add(foods);
-//        result.add(values);
 
         return CommonResult.success(result);
     }

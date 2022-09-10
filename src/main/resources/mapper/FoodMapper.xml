@@ -6,6 +6,6 @@
 <mapper namespace="com.example.mapper.FoodMapper">
 
     <select id="selectFood" resultType="com.example.pojo.Food">
-        select id,food,value from food;
+        select id,food,value,user1ate,user2ate,user3ate,user4ate,user5ate from food;
     </select>
 </mapper>
