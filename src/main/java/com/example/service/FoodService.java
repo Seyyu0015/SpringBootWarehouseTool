@@ -7,6 +7,6 @@ import com.example.common.CommonResult;
  * @version 1.0
  * @date 2022-9-10
  */
-public interface UserService {
-    CommonResult queryUserList();
+public interface FoodService {
+    CommonResult queryFoodList();
 }
