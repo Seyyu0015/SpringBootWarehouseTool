@@ -43,24 +43,22 @@ public class CalculatorServiceImp implements CalculatorService {
             result.put(user.getId(), (double) 0);
         }
 
+        //遍历每个食材
         for (Food food : foodList) {
-            System.out.println(food.getFood() + "的单价是:" + food.getValue());
-
             //人数（避免÷0）
             int numberofperson = food.getUser1ate() +
                     food.getUser2ate() +
                     food.getUser3ate() +
                     food.getUser4ate() +
                     food.getUser5ate();
-            System.out.println(food.getFood() + "的食用人数是:" + numberofperson);
+            //System.out.println(food.getFood() + "的食用人数是:" + numberofperson);
 
             //每人应该支付的金额
             double perpersonpaid = 0;
             if (numberofperson != 0) {
                 perpersonpaid = food.getValue() / numberofperson;
             }
-
-            System.out.println(food.getFood() + "的每人金额是:" + perpersonpaid);
+            //System.out.println(food.getFood() + "的每人金额是:" + perpersonpaid);
 
             //按人结算
             if (food.getUser1ate() == 1) {
