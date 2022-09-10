@@ -35,9 +35,6 @@ public class CommonResult<T>{
 
     /**
      * 返回成功方法
-     * @param data
-     * @param <T>
-     * @return
      */
     public static <T> CommonResult success(T data){
         return new CommonResult(200,data,"请求成功",null);
@@ -52,8 +49,6 @@ public class CommonResult<T>{
     }
     /**
      * 返回错误方法
-     * @param msg
-     * @return
      */
     public static CommonResult fail(int code,String msg){
         return new CommonResult(code,null,msg,null);
