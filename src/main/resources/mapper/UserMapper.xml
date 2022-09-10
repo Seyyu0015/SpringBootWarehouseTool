@@ -5,7 +5,7 @@
 
 <mapper namespace="com.example.mapper.UserMapper">
 
-    <!--查询录播图信息-->
+    <!--查询用户-->
     <select id="selectUser" resultType="com.example.pojo.User">
         select id,username from user;
     </select>

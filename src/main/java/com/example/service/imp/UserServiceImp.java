@@ -10,6 +10,11 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Seyyu
+ * @version 1.0
+ * @date 2022-9-10
+ */
 @Service
 public class UserServiceImp implements UserService {
 

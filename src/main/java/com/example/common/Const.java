@@ -3,7 +3,7 @@ package com.example.common;
 /**
  * @author Seyyu
  * @version 1.0
- * @date 2022/8/28 12:09
+ * @date 2022-9-10
  */
 public interface Const {
 

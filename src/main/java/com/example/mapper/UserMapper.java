@@ -10,9 +10,5 @@ import java.util.List;
  * @date 2022-9-10
  */
 public interface UserMapper {
-    /**
-     * 查询录播图信息
-     * @return
-     */
     List<User> selectUser();
 }
