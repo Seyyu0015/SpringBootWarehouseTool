@@ -22,4 +22,4 @@ Spring Boot、MyBatis
    localhost:4006/index
    ```
 
-   
+   ![QQ截图20220910170956](https://user-images.githubusercontent.com/103107612/189477087-a81f65fa-7f5b-42eb-aeb8-6ee120ffb9fc.png)
