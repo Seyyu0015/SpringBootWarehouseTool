@@ -53,7 +53,7 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, '田宇');
+INSERT INTO `user` VALUES (1, '张三');
 INSERT INTO `user` VALUES (2, '左瀚文');
 INSERT INTO `user` VALUES (3, '程哲啉');
 INSERT INTO `user` VALUES (4, '李家宇');
