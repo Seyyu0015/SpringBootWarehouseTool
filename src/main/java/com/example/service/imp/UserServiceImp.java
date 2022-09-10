@@ -29,10 +29,10 @@ public class UserServiceImp implements UserService {
             return CommonResult.fail(500,"查询数据信息为空");
         }
         List<String> result=new ArrayList<>();
-        //拼装路径
-        userList.forEach(user->{
+
+        for (User user : userList) {
             result.add(user.getUsername());
-        });
+        }
         return CommonResult.success(result);
     }
 }
