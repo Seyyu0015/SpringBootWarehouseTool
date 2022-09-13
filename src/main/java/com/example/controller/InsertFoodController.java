@@ -1,9 +1,8 @@
 package com.example.controller;
 
 import com.example.common.CommonResult;
-import com.example.service.FoodService;
+import com.example.service.InsertFoodService;
 import com.example.service.InsertUserService;
-import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 
 @Controller
-public class InsertUser {
+public class InsertFoodController {
 
     @Autowired
-    private InsertUserService insertUserService;
+    private InsertFoodService insertFoodService;
 
-    @GetMapping("/addUser")
+    @GetMapping("/addFood")
     @ResponseBody
-    public CommonResult addUser(String username){
-        return insertUserService.addUser(username);
+    public CommonResult addFood(String food,double value) {
+        return insertFoodService.addFood(food,value);
     }
 }

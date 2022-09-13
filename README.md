@@ -27,6 +27,10 @@ Spring Boot、MyBatis
    ```
    http://localhost:4006/addUser?username=王五
    ```
+* #### 新增食材
+   ```
+   http://localhost:4006/addFood?food=黄瓜&value=5.0
+   ```
 ##### 已知问题：
 * 出现重名用户时hashMap get返回null；
 * 删除用户后id断层；——已修复

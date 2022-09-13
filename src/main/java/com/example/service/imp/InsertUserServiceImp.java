@@ -40,8 +40,12 @@ public class InsertUserServiceImp implements InsertUserService {
         User lastUser = userList.get(userList.size() - 1);
         int id =  lastUser.getId() + 1;
 
-    insertUserMapper.addUser(id,username);
-    return CommonResult.success("插入成功：" + username);
+        try {   insertUserMapper.addUser(id,username);
+            return CommonResult.success("插入成功：" + username);
+        } catch(Exception e) {
+            return CommonResult.fail(500, String.valueOf(e));
+        }
+
 
     }
 }
