@@ -24,7 +24,6 @@ public class InsertUser {
     @GetMapping("/addUser")
     @ResponseBody
     public CommonResult addUser(String username){
-        System.out.println(username);
         return insertUserService.addUser(username);
     }
 }

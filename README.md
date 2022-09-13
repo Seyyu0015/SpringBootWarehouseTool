@@ -29,4 +29,4 @@ Spring Boot、MyBatis
    ```
 ##### 已知问题：
 * 出现重名用户时hashMap get返回null；
-* 删除用户后id断层；
+* 删除用户后id断层；——已修复
