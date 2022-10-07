@@ -48,8 +48,16 @@ public class FoodServiceImp implements FoodService {
         }catch(Exception e){
             return CommonResult.fail(500, String.valueOf(e));
         }
+    }
 
-
-
+    //删除食物
+    @Override
+    public CommonResult delFood(String food) {
+        try{
+            foodMapper.delFood(food);
+            return CommonResult.success("删除"+food+"成功");
+        }catch(Exception e){
+            return CommonResult.fail(500, String.valueOf(e));
+        }
     }
 }

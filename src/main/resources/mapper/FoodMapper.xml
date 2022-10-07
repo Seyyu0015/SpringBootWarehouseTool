@@ -13,4 +13,8 @@
         INSERT INTO `cc`.`food` (`food`, `value`) VALUES (#{food},#{value});
     </insert>
 
+    <update id="delFood" parameterType="java.lang.String">
+        DELETE FROM food
+        WHERE food=#{food};
+    </update>
 </mapper>

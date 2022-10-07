@@ -25,10 +25,15 @@ public class FoodController {
         return foodService.queryFoodList();
     }
 
-
     @GetMapping("/addFood")
     @ResponseBody
     public CommonResult addFood(String food,double value) {
         return foodService.addFood(food,value);
+    }
+
+    @GetMapping("/delFood")
+    @ResponseBody
+    public CommonResult delFood(String food) {
+        return foodService.delFood(food);
     }
 }
