@@ -17,4 +17,10 @@
         DELETE FROM food
         WHERE food=#{food};
     </update>
+
+    <update id="setFoodValue">
+        UPDATE food
+        SET value=#{value}
+        WHERE food=#{food};
+    </update>
 </mapper>

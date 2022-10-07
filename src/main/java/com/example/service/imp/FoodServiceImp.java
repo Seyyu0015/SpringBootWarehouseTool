@@ -60,4 +60,15 @@ public class FoodServiceImp implements FoodService {
             return CommonResult.fail(500, String.valueOf(e));
         }
     }
+
+    //修改价格
+    @Override
+    public CommonResult setFoodValue(String food, double value) {
+        try{
+            foodMapper.setFoodValue(food,value);
+            return CommonResult.success("修改"+food+"价格成功");
+        }catch(Exception e){
+            return CommonResult.fail(500, String.valueOf(e));
+        }
+    }
 }

@@ -14,4 +14,5 @@ public interface FoodMapper {
     List<Food> selectFood();
     void addFood(String food,double value);
     void delFood(String food);
+    void setFoodValue(String food,double value);
 }

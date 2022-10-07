@@ -36,4 +36,11 @@ public class FoodController {
     public CommonResult delFood(String food) {
         return foodService.delFood(food);
     }
+
+    @GetMapping("/setFoodValue")
+    @ResponseBody
+    public CommonResult setFood(String food,double value) {
+        return foodService.setFoodValue(food,value);
+    }
+
 }

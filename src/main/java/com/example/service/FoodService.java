@@ -11,6 +11,7 @@ public interface FoodService {
     CommonResult queryFoodList();
     CommonResult addFood(String food,double value);
     CommonResult delFood(String food);
+    CommonResult setFoodValue(String food, double value);
 }
 
 
