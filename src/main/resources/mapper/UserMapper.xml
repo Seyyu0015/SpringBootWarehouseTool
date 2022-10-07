@@ -16,4 +16,10 @@
     <update id="truncateUser" parameterType="java.lang.String">
         TRUNCATE TABLE user;
     </update>
+
+    <update id="delUser" parameterType="java.lang.String">
+        DELETE FROM user
+        WHERE username=#{username};
+    </update>
+
 </mapper>

@@ -30,4 +30,10 @@ public class UserController {
     public CommonResult addUser(String username){
         return userService.addUser(username);
     }
+
+    @GetMapping("/delUser")
+    @ResponseBody
+    public CommonResult delUser(String username){
+        return userService.delUser(username);
+    }
 }

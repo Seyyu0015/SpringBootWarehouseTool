@@ -21,7 +21,6 @@ public class UserServiceImp implements UserService {
     @Resource
     private UserMapper userMapper;
 
-    @Override
     public void truncateUser(){
         userMapper.truncateUser();//清空用户表
     };
@@ -70,5 +69,15 @@ public class UserServiceImp implements UserService {
         }
 
 
+    }
+
+    @Override
+    public CommonResult delUser(String username) {
+        try {
+            userMapper.delUser(username);
+            return CommonResult.success("删除"+username+"成功！");
+        }catch (Exception e){
+            return CommonResult.fail(500, String.valueOf(e));
+        }
     }
 }

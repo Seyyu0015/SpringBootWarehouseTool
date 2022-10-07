@@ -13,4 +13,5 @@ public interface UserMapper {
     List<User> selectUser();
     void addUser(int id, String username);
     void truncateUser();
+    void delUser(String username);
 }
