@@ -61,19 +61,19 @@ public class CalculatorServiceImp implements CalculatorService {
             //System.out.println(food.getFood() + "的每人金额是:" + perpersonpaid);
 
             //按人结算
-            if (food.getUser1ate() == 1) {
+            if (food.getUser1ate() == 1 && userList.size()>=1) {
                 result.put(1, result.get(1) + perpersonpaid);
             }
-            if (food.getUser2ate() == 1) {
+            if (food.getUser2ate() == 1 && userList.size()>=2) {
                 result.put(2, result.get(2) + perpersonpaid);
             }
-            if (food.getUser3ate() == 1) {
+            if (food.getUser3ate() == 1 && userList.size()>=3) {
                 result.put(3, result.get(3) + perpersonpaid);
             }
-            if (food.getUser4ate() == 1) {
+            if (food.getUser4ate() == 1 && userList.size()>=4) {
                 result.put(4, result.get(4) + perpersonpaid);
             }
-            if (food.getUser5ate() == 1) {
+            if (food.getUser5ate() == 1 && userList.size()>=5) {
                 result.put(5, result.get(5) + perpersonpaid);
             }
         }
