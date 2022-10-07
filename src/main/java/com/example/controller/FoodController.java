@@ -24,4 +24,11 @@ public class FoodController {
     public CommonResult selectFoodList(){
         return foodService.queryFoodList();
     }
+
+
+    @GetMapping("/addFood")
+    @ResponseBody
+    public CommonResult addFood(String food,double value) {
+        return foodService.addFood(food,value);
+    }
 }

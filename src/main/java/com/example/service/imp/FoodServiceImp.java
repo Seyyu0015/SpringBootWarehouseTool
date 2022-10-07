@@ -39,4 +39,17 @@ public class FoodServiceImp implements FoodService {
 
         return CommonResult.success(result);
     }
+
+    @Override
+    public CommonResult addFood(String food,double value) {
+        try{
+            foodMapper.addFood(food, value);
+            return CommonResult.success("插入成功：" + food);
+        }catch(Exception e){
+            return CommonResult.fail(500, String.valueOf(e));
+        }
+
+
+
+    }
 }

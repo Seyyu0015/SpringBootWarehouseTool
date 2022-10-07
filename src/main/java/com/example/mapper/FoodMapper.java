@@ -12,4 +12,5 @@ import java.util.List;
  */
 public interface FoodMapper {
     List<Food> selectFood();
+    void addFood(String food,double value);
 }

@@ -8,4 +8,9 @@
     <select id="selectFood" resultType="com.example.pojo.Food">
         select id,food,value,user1ate,user2ate,user3ate,user4ate,user5ate from food;
     </select>
+
+    <insert id="addFood" parameterType="com.example.pojo.Food" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO `cc`.`food` (`food`, `value`) VALUES (#{food},#{value});
+    </insert>
+
 </mapper>

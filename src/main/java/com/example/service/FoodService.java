@@ -9,4 +9,7 @@ import com.example.common.CommonResult;
  */
 public interface FoodService {
     CommonResult queryFoodList();
+    CommonResult addFood(String food,double value);
 }
+
+
