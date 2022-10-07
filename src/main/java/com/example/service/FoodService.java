@@ -12,6 +12,13 @@ public interface FoodService {
     CommonResult addFood(String food,double value);
     CommonResult delFood(String food);
     CommonResult setFoodValue(String food, double value);
+    CommonResult setFoodEater(String food,
+                              int user1,
+                              int user2,
+                              int user3,
+                              int user4,
+                              int user5);
+
 }
 
 

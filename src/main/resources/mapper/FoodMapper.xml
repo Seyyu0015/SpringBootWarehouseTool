@@ -18,6 +18,16 @@
         WHERE food=#{food};
     </update>
 
+    <update id="setFoodEater">
+        UPDATE food
+        SET user1ate=#{user1},
+        user2ate=#{user2},
+        user3ate=#{user3},
+        user4ate=#{user4},
+        user5ate=#{user5}
+        WHERE food=#{food};
+    </update>
+
     <update id="setFoodValue">
         UPDATE food
         SET value=#{value}

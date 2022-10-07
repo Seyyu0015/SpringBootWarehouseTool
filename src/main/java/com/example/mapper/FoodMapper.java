@@ -1,5 +1,6 @@
 package com.example.mapper;
 
+import com.example.common.CommonResult;
 import com.example.pojo.Food;
 import com.example.pojo.User;
 
@@ -15,4 +16,10 @@ public interface FoodMapper {
     void addFood(String food,double value);
     void delFood(String food);
     void setFoodValue(String food,double value);
+    void setFoodEater(String food,
+                      int user1,
+                      int user2,
+                      int user3,
+                      int user4,
+                      int user5);
 }

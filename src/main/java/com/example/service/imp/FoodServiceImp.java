@@ -71,4 +71,15 @@ public class FoodServiceImp implements FoodService {
             return CommonResult.fail(500, String.valueOf(e));
         }
     }
+
+    //统计吃过的人
+    @Override
+    public CommonResult setFoodEater(String food, int user1, int user2, int user3, int user4, int user5) {
+        try{
+            foodMapper.setFoodEater(food,user1,user2,user3,user4,user5);
+            return CommonResult.success("修改"+food+"成功");
+        }catch(Exception e){
+            return CommonResult.fail(500, String.valueOf(e));
+        }
+    }
 }

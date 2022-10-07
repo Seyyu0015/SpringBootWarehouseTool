@@ -3,6 +3,8 @@ package com.example.controller;
 import com.example.common.CommonResult;
 import com.example.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,7 @@ public class UserController {
     }
 
     @Operation(summary = "新增用户")
+    @Parameter(name = "username",description = "用户名",example = "张三")
     @GetMapping("/addUser")
     @ResponseBody
     public CommonResult addUser(String username){
@@ -37,6 +40,7 @@ public class UserController {
     }
 
     @Operation(summary = "删除用户")
+    @Parameter(name = "username",description = "用户名",example = "张三")
     @GetMapping("/delUser")
     @ResponseBody
     public CommonResult delUser(String username){
