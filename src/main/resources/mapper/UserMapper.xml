@@ -9,4 +9,11 @@
         select id,username from user;
     </select>
 
+    <insert id="addUser" parameterType="com.example.pojo.User">
+        INSERT INTO `cc`.`user` (`id`,`username`) VALUES (#{id},#{username});
+    </insert>
+
+    <update id="truncateUser" parameterType="java.lang.String">
+        TRUNCATE TABLE user;
+    </update>
 </mapper>

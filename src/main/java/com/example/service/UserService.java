@@ -9,4 +9,7 @@ import com.example.common.CommonResult;
  */
 public interface UserService {
     CommonResult queryUserList();
+    CommonResult addUser(String username);
+    void truncateUser();
+
 }

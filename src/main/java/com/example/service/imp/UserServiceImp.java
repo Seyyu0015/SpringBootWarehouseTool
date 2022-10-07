@@ -22,6 +22,11 @@ public class UserServiceImp implements UserService {
     private UserMapper userMapper;
 
     @Override
+    public void truncateUser(){
+        userMapper.truncateUser();//清空用户表
+    };
+
+    @Override
     public CommonResult queryUserList() {
         List<User> userList = userMapper.selectUser();
 
@@ -34,5 +39,36 @@ public class UserServiceImp implements UserService {
             result.add(user.getUsername());
         }
         return CommonResult.success(result);
+    }
+
+    @Override
+    public CommonResult addUser(String username) {
+        //获得数据
+        List<User> userList = userMapper.selectUser();
+
+        //判断人数是否已满
+        if(userList.size()>=5){
+            return CommonResult.fail(500,"目前最多支持五人！");
+        }
+
+        //清空数据表
+        userMapper.truncateUser();
+
+        //重新插入数据
+        User newUser = new User(userList.size()+1,username);
+        userList.add(newUser);
+
+        try {
+            int i = 1;
+            for (User user : userList) {
+                userMapper.addUser(i,user.getUsername());
+                i++;
+            }
+            return CommonResult.success("插入成功：" + username);
+        } catch(Exception e) {
+            return CommonResult.fail(500, String.valueOf(e));
+        }
+
+
     }
 }

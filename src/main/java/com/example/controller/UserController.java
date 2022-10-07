@@ -24,4 +24,10 @@ public class UserController {
     public CommonResult selectUserList(){
         return userService.queryUserList();
     }
+
+    @GetMapping("/addUser")
+    @ResponseBody
+    public CommonResult addUser(String username){
+        return userService.addUser(username);
+    }
 }

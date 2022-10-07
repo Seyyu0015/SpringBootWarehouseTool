@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface UserMapper {
     List<User> selectUser();
+    void addUser(int id, String username);
+    void truncateUser();
 }
