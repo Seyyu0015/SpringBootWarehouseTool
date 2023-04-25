@@ -9,9 +9,7 @@ import java.util.List;
  * @version 1.0
  * @date 2022-9-10
  */
-public interface UserMapper {
+public interface InfMapper {
     List<User> selectUser();
-    void addUser(int id, String username);
-    void truncateUser();
-    void delUser(String username);
+    User selectUserByUserId(String userid);
 }

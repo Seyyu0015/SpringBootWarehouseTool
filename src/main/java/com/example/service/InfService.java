@@ -7,6 +7,6 @@ import com.example.common.CommonResult;
  * @version 1.0
  * @date 2022-9-10
  */
-public interface CalculatorService {
-    CommonResult calculator();
+public interface InfService {
+    CommonResult queryUserList(String userid,String password);
 }

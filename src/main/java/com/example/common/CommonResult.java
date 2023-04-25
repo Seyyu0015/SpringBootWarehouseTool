@@ -13,44 +13,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommonResult<T>{
-    /**
-     * 响应码状态
-     */
+    //响应码状态
     private int status;
-
-    /**
-     * 返回结果集
-     */
+    //返回结果集
     private T data;
-
-    /**
-     * 响应信息
-     */
+    //响应信息
     private String msg;
 
-    /**
-     * 是否有更多信息
-     */
-    private Boolean hasMore;
-
-    /**
-     * 返回成功方法
-     */
-    public static <T> CommonResult success(T data){
-        return new CommonResult(200,data,"请求成功",null);
-    }
-
-    public static <T> CommonResult success(String msg){
-        return new CommonResult(200,null,msg,null);
-    }
-
-    public static <T> CommonResult success(T data,Boolean hasMore){
-        return new CommonResult(200,data,"请求成功",hasMore);
-    }
-    /**
-     * 返回错误方法
-     */
+    //返回成功方法
+    public static <T> CommonResult success(T data){return new CommonResult(200,data,"请求成功");}
+    //返回错误方法
     public static CommonResult fail(int code,String msg){
-        return new CommonResult(code,null,msg,null);
+        return new CommonResult(code,null,msg);
     }
 }
