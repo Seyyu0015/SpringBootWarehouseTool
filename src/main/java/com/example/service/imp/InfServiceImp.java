@@ -45,7 +45,6 @@ public class InfServiceImp implements InfService {
     @Override
     public CommonResult selectStorageList(String itemname, String warehousename) {
         int i = 0;
-        //筛选
         Item item = infMapper.selectItemByName(itemname);
         Warehouse warehouse = infMapper.selectWarehouseByName(warehousename);
 
@@ -82,7 +81,16 @@ public class InfServiceImp implements InfService {
                 }
             }
         }
-        return CommonResult.success(storageDisplays);
+
+        //应用筛选
+        List<StorageDisplay> result = new ArrayList<>();
+        for (StorageDisplay sd : storageDisplays){
+            if ((itemname.isEmpty() || sd.getItemname().equals(itemname))&&(warehousename.isEmpty() || sd.getWarehousename().equals(warehousename))){
+                result.add(sd);
+            }
+        }
+        System.out.print(itemname);
+        return CommonResult.success(result);
     }
 
 }
