@@ -3,13 +3,40 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!--User-->
 <mapper namespace="com.example.mapper.InfMapper">
     <select id="selectUser" resultType="com.example.pojo.User">
-        select username,password,permission from user;
+        select * from user;
     </select>
 
     <select id="selectUserByUserId" resultType="com.example.pojo.User">
-        select username,password,permission from user where userid=#{userid};
+        select * from user where userid=#{userid};
+    </select>
+
+<!--Storage-->
+    <select id="selectStorageByIW" resultType="com.example.pojo.Storage">
+        select * from storage where itemid=#{itemid} and warehouseid=#{warehouseid};
+    </select>
+
+    <select id="selectStorage" resultType="com.example.pojo.Storage">
+        select * from storage;
+    </select>
+
+<!--Item-->
+    <select id="selectItemById" resultType="com.example.pojo.Item">
+        select * from item where id=#{itemid};
+    </select>
+    <select id="selectItemByName" resultType="com.example.pojo.Item">
+        select * from item where itemname=#{itemname};
+    </select>
+
+<!--Warehouse-->
+    <select id="selectWarehouseById" resultType="com.example.pojo.Warehouse">
+        select * from warehouse where id=#{warehouseid};
+    </select>
+
+    <select id="selectWarehouseByName" resultType="com.example.pojo.Warehouse">
+        select * from warehouse where name=#{warehousename};
     </select>
 
 </mapper>

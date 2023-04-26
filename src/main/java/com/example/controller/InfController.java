@@ -30,4 +30,11 @@ public class InfController {
         return infService.queryUserList(userid,password);
     }
 
+    @Operation(summary = "查询库存列表")
+    @GetMapping("/storage")
+    @ResponseBody
+    public CommonResult selectStorageList(String itemname, String warehousename){
+        return infService.selectStorageList(itemname,warehousename);
+    }
+
 }

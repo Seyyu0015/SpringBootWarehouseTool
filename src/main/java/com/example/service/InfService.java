@@ -9,4 +9,6 @@ import com.example.common.CommonResult;
  */
 public interface InfService {
     CommonResult queryUserList(String userid,String password);
+
+    CommonResult selectStorageList(String itemname, String warehousename);
 }
