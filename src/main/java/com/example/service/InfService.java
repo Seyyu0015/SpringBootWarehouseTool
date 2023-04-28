@@ -11,4 +11,6 @@ public interface InfService {
     CommonResult queryUserList(String userid,String password);
 
     CommonResult selectStorageList(String itemname, String warehousename);
+
+    CommonResult selectWarehouse();
 }

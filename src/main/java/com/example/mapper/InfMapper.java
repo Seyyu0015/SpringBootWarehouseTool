@@ -17,6 +17,7 @@ public interface InfMapper {
     User selectUserByUserId(String userid);
     List<Storage> selectStorageByIW(int itemid, int warehouseid);
     List<Storage> selectStorage();
+    List<Warehouse> selectWarehouse();
     Item selectItemById(int itemid);
     Item selectItemByName(String itemname);
     Warehouse selectWarehouseByName(String warehousename);

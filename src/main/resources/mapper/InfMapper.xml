@@ -31,6 +31,10 @@
     </select>
 
 <!--Warehouse-->
+    <select id="selectWarehouse" resultType="com.example.pojo.Warehouse">
+        select * from warehouse;
+    </select>
+
     <select id="selectWarehouseById" resultType="com.example.pojo.Warehouse">
         select * from warehouse where id=#{warehouseid};
     </select>

@@ -37,4 +37,11 @@ public class InfController {
         return infService.selectStorageList(itemname,warehousename);
     }
 
+    @Operation(summary = "查询仓库列表")
+    @GetMapping("/warehouse")
+    @ResponseBody
+    public CommonResult selectWarehouse(){
+        return infService.selectWarehouse();
+    }
+
 }

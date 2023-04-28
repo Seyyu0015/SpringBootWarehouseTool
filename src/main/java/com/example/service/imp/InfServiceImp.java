@@ -93,4 +93,9 @@ public class InfServiceImp implements InfService {
         return CommonResult.success(result);
     }
 
+    @Override
+    public CommonResult selectWarehouse() {
+        return CommonResult.success(infMapper.selectWarehouse());
+    }
+
 }
