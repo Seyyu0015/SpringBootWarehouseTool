@@ -5,6 +5,7 @@ import com.example.pojo.Storage;
 import com.example.pojo.User;
 import com.example.pojo.Warehouse;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,15 +14,23 @@ import java.util.List;
  * @date 2022-9-10
  */
 public interface InfMapper {
+    //User
     List<User> selectUser();
     User selectUserByUserId(String userid);
+
+    //Storage
     Storage selectStorageByIW(int itemid, int warehouseid);
     List<Storage> selectStorage();
-    List<Warehouse> selectWarehouse();
     int addStorage(int itemid, int warehouseid,int number);
     int setStorage(int itemid, int warehouseid,int number);
+
+    //Item
+    int addItem(String itemname, String unit, Date date);
     Item selectItemById(int itemid);
     Item selectItemByName(String itemname);
+
+    //Warehouse
+    List<Warehouse> selectWarehouse();
     Warehouse selectWarehouseByName(String warehousename);
     Warehouse selectWarehouseById(int warehouseid);
 }

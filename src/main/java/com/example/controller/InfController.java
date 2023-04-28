@@ -58,4 +58,18 @@ public class InfController {
         return infService.setStorage(itemid,warehouseid,number);
     }
 
+    @Operation(summary = "添加物品")
+    @GetMapping("/addItem")
+    @ResponseBody
+    public CommonResult addItem(String itemname,String unit){
+        return infService.addItem(itemname,unit);
+    }
+
+    @Operation(summary = "修改物品")
+    @GetMapping("/setItem")
+    @ResponseBody
+    public CommonResult setItem(String itemname, String newname, String name){
+        return infService.setItem(itemname,newname,name);
+    }
+
 }

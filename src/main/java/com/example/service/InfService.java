@@ -17,4 +17,8 @@ public interface InfService {
     CommonResult addStorage(int itemid, int warehouseid, int number);
 
     CommonResult setStorage(int itemid, int warehouseid, int number);
+
+    CommonResult addItem(String itemname, String unit);
+
+    CommonResult setItem(String itemname, String newname, String name);
 }

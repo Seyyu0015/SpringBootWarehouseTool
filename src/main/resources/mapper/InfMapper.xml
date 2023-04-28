@@ -41,6 +41,10 @@
     </select>
 
 <!--Warehouse-->
+    <insert id="addItem" parameterType="com.example.pojo.Item" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO `wms`.`item` (`itemname`, `unit`, `datetime`) VALUES (#{itemname},#{unit},#{date});
+    </insert>
+
     <select id="selectWarehouse" resultType="com.example.pojo.Warehouse">
         select * from warehouse;
     </select>

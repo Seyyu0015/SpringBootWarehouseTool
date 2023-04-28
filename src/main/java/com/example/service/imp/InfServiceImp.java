@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -149,6 +150,27 @@ public class InfServiceImp implements InfService {
         }catch (Exception e){
             return CommonResult.fail(500, String.valueOf(e));
         }
+    }
+
+    @Override
+    public CommonResult addItem(String itemname, String unit) {
+        Item exitem = infMapper.selectItemByName(itemname);
+        if(exitem != null){
+            return CommonResult.success("请求被拒绝 同名物品已存在");
+        }
+        try{
+            Date time= new java.sql.Date(new java.util.Date().getTime());
+            System.out.print(time);
+            infMapper.addItem(itemname,unit,time);
+            return CommonResult.success("新增物品成功");
+        }catch (Exception e){
+            return CommonResult.fail(500, String.valueOf(e));
+        }
+    }
+
+    @Override
+    public CommonResult setItem(String itemname, String newname, String name) {
+        return null;
     }
 
 }
