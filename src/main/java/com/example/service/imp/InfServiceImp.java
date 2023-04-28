@@ -25,7 +25,7 @@ public class InfServiceImp implements InfService {
     private InfMapper infMapper;
 
     @Override
-    public CommonResult queryUserList(String userid, String password) {
+    public CommonResult queryUserList(String userid, String password,String byid,String byper) {
         try {
             //权限确认
             User user = infMapper.selectUserByUserId(userid);
@@ -34,7 +34,15 @@ public class InfServiceImp implements InfService {
             }
 
             if (password.equals(user.getPassword())) {
-                return CommonResult.success(infMapper.selectUser());
+                //应用筛选
+                List<User> users = infMapper.selectUser();
+                List<User> result = new ArrayList<>();
+                for (User u : users){
+                    if ((byid.isEmpty() || u.getUserid().equals(byid))&&(byper.isEmpty() || u.getPermission().equals(byper))){
+                        result.add(u);
+                    }
+                }
+                return CommonResult.success(result);
             } else {
                 return CommonResult.success("身份验证失败");
             }
@@ -90,7 +98,6 @@ public class InfServiceImp implements InfService {
                 result.add(sd);
             }
         }
-        System.out.print(itemname);
         return CommonResult.success(result);
     }
 

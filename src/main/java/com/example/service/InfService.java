@@ -8,7 +8,7 @@ import com.example.common.CommonResult;
  * @date 2022-9-10
  */
 public interface InfService {
-    CommonResult queryUserList(String userid,String password);
+    CommonResult queryUserList(String userid,String password,String byid,String byper);
 
     CommonResult selectStorageList(String itemname, String warehousename);
 
