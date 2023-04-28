@@ -160,7 +160,6 @@ public class InfServiceImp implements InfService {
         }
         try{
             Date time= new java.sql.Date(new java.util.Date().getTime());
-            System.out.print(time);
             infMapper.addItem(itemname,unit,time);
             return CommonResult.success("新增物品成功");
         }catch (Exception e){
@@ -169,8 +168,18 @@ public class InfServiceImp implements InfService {
     }
 
     @Override
-    public CommonResult setItem(String itemname, String newname, String name) {
-        return null;
+    public CommonResult setItem(String itemname, String newname, String unit) {
+        Item exitem = infMapper.selectItemByName(newname);
+        Item exitem2 = infMapper.selectItemByName(itemname);
+        if(exitem != null || exitem2 == null){
+            return CommonResult.success("请求被拒绝 未找到该物品或同名物品已存在");
+        }
+        try{
+            infMapper.setItem(itemname,newname,unit);
+            return CommonResult.success("修改成功");
+        }catch (Exception e){
+            return CommonResult.fail(500, String.valueOf(e));
+        }
     }
 
 }

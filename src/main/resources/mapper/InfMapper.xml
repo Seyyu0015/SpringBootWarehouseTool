@@ -36,15 +36,23 @@
     <select id="selectItemById" resultType="com.example.pojo.Item">
         select * from item where id=#{itemid};
     </select>
+
     <select id="selectItemByName" resultType="com.example.pojo.Item">
         select * from item where itemname=#{itemname};
     </select>
 
-<!--Warehouse-->
     <insert id="addItem" parameterType="com.example.pojo.Item" useGeneratedKeys="true" keyProperty="id" >
         INSERT INTO `wms`.`item` (`itemname`, `unit`, `datetime`) VALUES (#{itemname},#{unit},#{date});
     </insert>
 
+    <update id="setItem">
+        UPDATE item
+        SET itemname=#{newname},
+            unit = #{unit}
+        WHERE itemname=#{itemname};
+    </update>
+
+<!--Warehouse-->
     <select id="selectWarehouse" resultType="com.example.pojo.Warehouse">
         select * from warehouse;
     </select>

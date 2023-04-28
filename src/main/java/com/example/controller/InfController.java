@@ -68,8 +68,8 @@ public class InfController {
     @Operation(summary = "修改物品")
     @GetMapping("/setItem")
     @ResponseBody
-    public CommonResult setItem(String itemname, String newname, String name){
-        return infService.setItem(itemname,newname,name);
+    public CommonResult setItem(String itemname, String newname, String unit){
+        return infService.setItem(itemname,newname,unit);
     }
 
 }

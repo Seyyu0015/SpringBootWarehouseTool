@@ -26,6 +26,7 @@ public interface InfMapper {
 
     //Item
     int addItem(String itemname, String unit, Date date);
+    int setItem(String itemname, String newname, String unit);
     Item selectItemById(int itemid);
     Item selectItemByName(String itemname);
 

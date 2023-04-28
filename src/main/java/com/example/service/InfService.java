@@ -20,5 +20,5 @@ public interface InfService {
 
     CommonResult addItem(String itemname, String unit);
 
-    CommonResult setItem(String itemname, String newname, String name);
+    CommonResult setItem(String itemname, String newname, String unit);
 }
