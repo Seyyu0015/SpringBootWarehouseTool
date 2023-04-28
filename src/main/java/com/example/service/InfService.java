@@ -13,4 +13,6 @@ public interface InfService {
     CommonResult selectStorageList(String itemname, String warehousename);
 
     CommonResult selectWarehouse();
+
+    CommonResult addStorage(int itemid, int warehouseid, int number);
 }

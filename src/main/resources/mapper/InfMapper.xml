@@ -22,6 +22,16 @@
         select * from storage;
     </select>
 
+    <insert id="addStorage" parameterType="com.example.pojo.Storage" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO `wms`.`storage` (`itemid`, `warehouseid`,`itemnumber`) VALUES (#{itemid},#{warehouseid},#{number});
+    </insert>
+
+    <update id="setStorage">
+        UPDATE storage
+        SET itemnumber=#{number}
+        WHERE itemid=#{itemid} and warehouseid=#{warehouseid};
+    </update>
+
 <!--Item-->
     <select id="selectItemById" resultType="com.example.pojo.Item">
         select * from item where id=#{itemid};

@@ -98,4 +98,25 @@ public class InfServiceImp implements InfService {
         return CommonResult.success(infMapper.selectWarehouse());
     }
 
+    @Override
+    public CommonResult addStorage(int itemid, int warehouseid, int number) {
+        //初始化
+        Storage exsd = infMapper.selectStorageByIW(itemid,warehouseid);
+
+        //验证合法性
+        if(infMapper.selectWarehouseById(warehouseid) == null || infMapper.selectItemById(itemid) ==null
+        ){
+            return CommonResult.success("未找到该物品或仓库 请检查id输入是否正确");
+        }
+        //执行操作
+        if (exsd != null){
+            //记录已存在
+            int tonumber = number + exsd.getItemnumber();
+            return CommonResult.success(infMapper.setStorage(itemid,warehouseid,tonumber));
+        }else {
+            //记录不存在
+            return CommonResult.success(infMapper.addStorage(itemid,warehouseid,number));
+        }
+    }
+
 }

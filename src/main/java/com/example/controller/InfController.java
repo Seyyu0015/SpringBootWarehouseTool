@@ -44,4 +44,11 @@ public class InfController {
         return infService.selectWarehouse();
     }
 
+    @Operation(summary = "添加记录")
+    @GetMapping("/addStorage")
+    @ResponseBody
+    public CommonResult addStorage(int itemid, int warehouseid,int number){
+        return infService.addStorage(itemid,warehouseid,number);
+    }
+
 }
