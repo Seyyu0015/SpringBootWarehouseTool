@@ -102,20 +102,34 @@ public class InfServiceImp implements InfService {
     public CommonResult addStorage(int itemid, int warehouseid, int number) {
         //初始化
         Storage exsd = infMapper.selectStorageByIW(itemid,warehouseid);
+        Warehouse warehouse = infMapper.selectWarehouseById(warehouseid);
+        Item item = infMapper.selectItemById(itemid);
 
         //验证合法性
-        if(infMapper.selectWarehouseById(warehouseid) == null || infMapper.selectItemById(itemid) ==null
+        if(warehouse == null || item ==null
         ){
             return CommonResult.success("未找到该物品或仓库 请检查id输入是否正确");
         }
+
         //执行操作
         if (exsd != null){
             //记录已存在
             int tonumber = number + exsd.getItemnumber();
-            return CommonResult.success(infMapper.setStorage(itemid,warehouseid,tonumber));
+            try{
+                infMapper.setStorage(itemid,warehouseid,tonumber);
+                return CommonResult.success("向仓库 "+warehouse.getName()+" 添加 "+item.getItemname()+"*"+number+"成功");
+            }catch (Exception e){
+                return CommonResult.fail(500, String.valueOf(e));
+            }
+
         }else {
             //记录不存在
-            return CommonResult.success(infMapper.addStorage(itemid,warehouseid,number));
+            try{
+                infMapper.addStorage(itemid,warehouseid,number);
+                return CommonResult.success("向仓库 "+warehouse.getName()+" 添加 "+item.getItemname()+"*"+number+"成功");
+            }catch (Exception e){
+                return CommonResult.fail(500, String.valueOf(e));
+            }
         }
     }
 
