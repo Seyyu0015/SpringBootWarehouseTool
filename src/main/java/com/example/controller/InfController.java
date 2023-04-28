@@ -51,4 +51,11 @@ public class InfController {
         return infService.addStorage(itemid,warehouseid,number);
     }
 
+    @Operation(summary = "修改记录")
+    @GetMapping("/setStorage")
+    @ResponseBody
+    public CommonResult setStorage(int itemid, int warehouseid,int number){
+        return infService.setStorage(itemid,warehouseid,number);
+    }
+
 }

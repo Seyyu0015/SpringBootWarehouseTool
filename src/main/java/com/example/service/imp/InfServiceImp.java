@@ -106,8 +106,7 @@ public class InfServiceImp implements InfService {
         Item item = infMapper.selectItemById(itemid);
 
         //验证合法性
-        if(warehouse == null || item ==null
-        ){
+        if(warehouse == null || item ==null){
             return CommonResult.success("未找到该物品或仓库 请检查id输入是否正确");
         }
 
@@ -130,6 +129,25 @@ public class InfServiceImp implements InfService {
             }catch (Exception e){
                 return CommonResult.fail(500, String.valueOf(e));
             }
+        }
+    }
+
+    @Override
+    public CommonResult setStorage(int itemid, int warehouseid, int number) {
+        //初始化
+        Storage exsd = infMapper.selectStorageByIW(itemid,warehouseid);
+
+        //验证合法性
+        if(exsd == null){
+            return CommonResult.success("未找到该物品或仓库 请检查id输入是否正确");
+        }
+
+        //执行操作
+        try{
+            infMapper.setStorage(itemid,warehouseid,number);
+            return CommonResult.success("修改成功");
+        }catch (Exception e){
+            return CommonResult.fail(500, String.valueOf(e));
         }
     }
 

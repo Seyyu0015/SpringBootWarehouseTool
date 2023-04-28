@@ -15,4 +15,6 @@ public interface InfService {
     CommonResult selectWarehouse();
 
     CommonResult addStorage(int itemid, int warehouseid, int number);
+
+    CommonResult setStorage(int itemid, int warehouseid, int number);
 }
