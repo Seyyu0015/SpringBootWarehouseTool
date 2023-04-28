@@ -21,4 +21,11 @@ public interface InfService {
     CommonResult addItem(String itemname, String unit);
 
     CommonResult setItem(String itemname, String newname, String unit);
+
+    CommonResult addWarehouse(String name,String location);
+
+    CommonResult setWarehouse(String newname, String location, String name);
+
+
+
 }

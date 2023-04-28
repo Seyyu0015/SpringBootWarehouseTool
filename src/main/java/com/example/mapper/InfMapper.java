@@ -32,6 +32,8 @@ public interface InfMapper {
 
     //Warehouse
     List<Warehouse> selectWarehouse();
+    int addWarehouse(String name, String location);
+    int setWarehouse(String newname, String name, String location);
     Warehouse selectWarehouseByName(String warehousename);
     Warehouse selectWarehouseById(int warehouseid);
 }

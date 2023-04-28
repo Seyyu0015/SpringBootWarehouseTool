@@ -182,4 +182,33 @@ public class InfServiceImp implements InfService {
         }
     }
 
+    @Override
+    public CommonResult addWarehouse(String name, String location) {
+        Warehouse exwarehouse = infMapper.selectWarehouseByName(name);
+        if(exwarehouse != null){
+            return CommonResult.success("请求被拒绝 同名仓库已存在");
+        }
+        try{
+            infMapper.addWarehouse(name,location);
+            return CommonResult.success("新增成功");
+        }catch (Exception e){
+            return CommonResult.fail(500, String.valueOf(e));
+        }
+    }
+
+    @Override
+    public CommonResult setWarehouse(String newname, String location, String name) {
+        Warehouse exwarehouse = infMapper.selectWarehouseByName(name);
+        Warehouse exwarehouse2 = infMapper.selectWarehouseByName(newname);
+        if(exwarehouse2 != null || exwarehouse == null){
+            return CommonResult.success("请求被拒绝 未找到该仓库或同名仓库已存在");
+        }
+        try{
+            infMapper.setWarehouse(newname,name,location);
+            return CommonResult.success("修改成功");
+        }catch (Exception e){
+            return CommonResult.fail(500, String.valueOf(e));
+        }
+    }
+
 }

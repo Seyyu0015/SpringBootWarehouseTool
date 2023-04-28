@@ -53,6 +53,16 @@
     </update>
 
 <!--Warehouse-->
+    <insert id="addWarehouse" parameterType="com.example.pojo.Warehouse" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO `wms`.`warehouse` (`name`, `location`) VALUES (#{name},#{location});
+    </insert>
+
+    <update id="setWarehouse">
+        UPDATE warehouse
+        SET name=#{newname},location=#{location}
+        WHERE name=#{name};
+    </update>
+
     <select id="selectWarehouse" resultType="com.example.pojo.Warehouse">
         select * from warehouse;
     </select>

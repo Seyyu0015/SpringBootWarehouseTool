@@ -72,4 +72,18 @@ public class InfController {
         return infService.setItem(itemname,newname,unit);
     }
 
+    @Operation(summary = "添加仓库")
+    @GetMapping("/addWarehouse")
+    @ResponseBody
+    public CommonResult addWarehouse(String name,String location){
+        return infService.addWarehouse(name,location);
+    }
+
+    @Operation(summary = "修改仓库")
+    @GetMapping("/setWarehouse")
+    @ResponseBody
+    public CommonResult setWarehouse(String newname, String location, String name){
+        return infService.setWarehouse(newname,location,name);
+    }
+
 }
