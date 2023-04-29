@@ -10,6 +10,10 @@
         select * from requirement;
     </select>
 
+    <select id="selectRequirementById" resultType="com.example.pojo.Requirement">
+        select * from requirement where id=#{id};
+    </select>
+
     <update id="setRequirementStateById">
         UPDATE requirement
         SET state=#{state}

@@ -25,5 +25,6 @@ public interface RequirementMapper {
                        Date datetime,
                        Integer newwarehouseid);
     List<Requirement> selectRequirement();
+    Requirement selectRequirementById(int id);
 
 }

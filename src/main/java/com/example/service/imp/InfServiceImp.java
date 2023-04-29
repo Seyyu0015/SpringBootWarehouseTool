@@ -181,7 +181,10 @@ public class InfServiceImp implements InfService {
             return CommonResult.success("请求被拒绝 未找到该物品或同名物品已存在");
         }
         try{
+            Date time= new java.sql.Date(new java.util.Date().getTime());
+            infMapper.setItemDateById(exitem2.getId(),time);
             infMapper.setItem(itemname,newname,unit);
+
             return CommonResult.success("修改成功");
         }catch (Exception e){
             return CommonResult.fail(500, String.valueOf(e));

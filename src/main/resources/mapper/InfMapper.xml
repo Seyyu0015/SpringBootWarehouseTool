@@ -74,6 +74,11 @@
         WHERE itemname=#{itemname};
     </update>
 
+    <update id="setItemDateById">
+        UPDATE item
+        SET datetime=#{date}
+        WHERE id=#{id};
+    </update>
 <!--Warehouse-->
     <insert id="addWarehouse" parameterType="com.example.pojo.Warehouse" useGeneratedKeys="true" keyProperty="id" >
         INSERT INTO `wms`.`warehouse` (`name`, `location`) VALUES (#{name},#{location});

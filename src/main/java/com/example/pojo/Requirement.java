@@ -21,7 +21,7 @@ public class Requirement {
     private int number;
     private int userid;
     private Date datetime;
-    private String sate;
+    private String state;
     private int newwarehouseid;
 
 }
