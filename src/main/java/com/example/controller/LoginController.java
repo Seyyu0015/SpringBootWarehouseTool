@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * @author Seyyu
  * @version 1.0
- * @date 2022-9-10
  */
 
 @Tag(name = "登录", description = "LoginController")

@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 /**
  * @author Seyyu
  * @version 1.0
- * @date 2022-9-10
  */
 @Service
 public class LoginServiceImp implements LoginService {

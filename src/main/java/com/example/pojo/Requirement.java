@@ -13,8 +13,15 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Warehouse {
+public class Requirement {
     private int id;
-    private String name;
-    private String location;
+    private String type;
+    private int itemid;
+    private int warehouseid;
+    private int number;
+    private int userid;
+    private Date datetime;
+    private String sate;
+    private int newwarehouseid;
+
 }

@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author Seyyu
  * @version 1.0
- * @date 2022-9-10
  */
 @SpringBootApplication
 @MapperScan(basePackages = "com.example.mapper")
