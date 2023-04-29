@@ -27,9 +27,9 @@ public class RequirementController {
         return requirementService.selectRequirement(userid);
     }
 
-    @GetMapping("/addrequirement")
+    @GetMapping("/addRequirement")
     @ResponseBody
-    public CommonResult requirement(String type,
+    public CommonResult addRequirement(String type,
                                     String itemname,
                                     String warehouse,
                                     int number,
@@ -38,7 +38,7 @@ public class RequirementController {
         return requirementService.addRequirement(type, itemname, warehouse, number, userid, newwarehouse);
     }
 
-    @GetMapping("/setrequirement")
+    @GetMapping("/setRequirement")
     @ResponseBody
     public CommonResult requirement(int id,String state) {
         return requirementService.setRequirement(id, state);

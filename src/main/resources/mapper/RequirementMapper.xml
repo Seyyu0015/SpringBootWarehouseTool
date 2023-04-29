@@ -5,7 +5,7 @@
 
 <mapper namespace="com.example.mapper.RequirementMapper">
 
-<!--requirement-->
+    <!--requirement-->
     <select id="selectRequirement" resultType="com.example.pojo.Requirement">
         select * from requirement;
     </select>
@@ -16,8 +16,35 @@
         WHERE id=#{id};
     </update>
 
-<!--User-->
+    <insert id="addRequirement" parameterType="com.example.pojo.Requirement" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO `wms`.`requirement` (`type`,
+                                         `itemid`,
+                                         `warehouseid`,
+                                         `number`,
+                                         `userid`,
+                                         `datetime`,
+                                         `newwarehouseid`)
+                                         VALUES (#{type},
+                                                 #{itemid},
+                                                 #{warehouseid},
+                                                 #{number},
+                                                 #{userid},
+                                                 #{datetime},
+                                                 #{newwarehouseid});
+    </insert>
+
+    <!--User-->
     <select id="selectUserByUserId" resultType="com.example.pojo.User">
         select * from user where userid=#{userid};
+    </select>
+
+    <!--Item-->
+    <select id="selectItemByName" resultType="com.example.pojo.Item">
+        select * from item where itemname=#{itemname};
+    </select>
+
+    <!--warehouse-->
+    <select id="selectWarehouseByName" resultType="com.example.pojo.Warehouse">
+    select * from warehouse where name=#{warehousename};
     </select>
 </mapper>
