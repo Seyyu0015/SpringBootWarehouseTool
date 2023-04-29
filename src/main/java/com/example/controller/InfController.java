@@ -26,8 +26,8 @@ public class InfController {
     @Operation(summary = "查询用户列表")
     @GetMapping("/user")
     @ResponseBody
-    public CommonResult selectUserList(String userid,String password,String byid,String byper){
-        return infService.queryUserList(userid,password,byid,byper);
+    public CommonResult selectUserList(String byid,String byper){
+        return infService.queryUserList(byid,byper);
     }
 
     @Operation(summary = "添加用户")

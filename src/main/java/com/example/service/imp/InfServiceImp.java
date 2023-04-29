@@ -24,30 +24,33 @@ public class InfServiceImp implements InfService {
     private InfMapper infMapper;
 
     @Override
-    public CommonResult queryUserList(String userid, String password,String byid,String byper) {
-        try {
-            //权限确认
-            User user = infMapper.selectUserByUserId(userid);
-            if (user == null) {
-                return CommonResult.success("身份验证失败");
-            }
-
-            if (password.equals(user.getPassword())) {
-                //应用筛选
-                List<User> users = infMapper.selectUser();
-                List<User> result = new ArrayList<>();
-                for (User u : users){
-                    if ((byid.isEmpty() || u.getUserid().equals(byid))&&(byper.isEmpty() || u.getPermission().equals(byper))){
-                        result.add(u);
-                    }
+    public CommonResult queryUserList(String byid,String byper) {
+        List<User> users = infMapper.selectUser();
+        //应用筛选
+        List<User> result = new ArrayList<>();
+        if(byid != null && byper != null){
+            for (User u : users){
+                if (u.getUserid().equals(byid) && u.getPermission().equals(byper)){
+                    result.add(u);
                 }
-                return CommonResult.success(result);
-            } else {
-                return CommonResult.success("身份验证失败");
             }
-        } catch (Exception e) {
-            return CommonResult.fail(500, String.valueOf(e));
+        }else if(byid != null){
+            for (User u : users){
+                if ((u.getUserid().equals(byid))){
+                    result.add(u);
+                }
+            }
+        }else if(byper != null){
+            for (User u : users){
+                if (u.getPermission().equals(byper)){
+                    result.add(u);
+                }
+            }
+        }else {
+            result = users;
         }
+        return CommonResult.success(result);
+
     }
 
     @Override
