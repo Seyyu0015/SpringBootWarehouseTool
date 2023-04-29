@@ -27,5 +27,9 @@ public interface InfService {
     CommonResult setWarehouse(String newname, String location, String name);
 
 
+    CommonResult addUser(String userid, String username, String password, String permission);
 
+    CommonResult setUser(String userid, String username, String password, String permission);
+
+    CommonResult delUser(String userid, String password);
 }

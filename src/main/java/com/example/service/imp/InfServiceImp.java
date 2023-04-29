@@ -218,4 +218,54 @@ public class InfServiceImp implements InfService {
         }
     }
 
+    @Override
+    public CommonResult addUser(String userid, String username, String password, String permission) {
+        User exuser = infMapper.selectUserByUserId(userid);
+        if(exuser != null){
+            return CommonResult.success("请求被拒绝 该id已存在");
+        }
+        User exuser2 = infMapper.selectUserByUserName(username);
+        if(exuser2 != null){
+            return CommonResult.success("请求被拒绝 该名称已存在");
+        }
+        try{
+            infMapper.addUser(userid,password,username,permission);
+            return CommonResult.success("新增成功");
+        }catch (Exception e){
+            return CommonResult.fail(500, String.valueOf(e));
+        }
+    }
+
+    @Override
+    public CommonResult setUser(String userid, String username, String password, String permission) {
+        User exuser = infMapper.selectUserByUserId(userid);
+        if(exuser == null){
+            return CommonResult.success("请求被拒绝 找不到指定id");
+        }
+        User exuser2 = infMapper.selectUserByUserName(username);
+        if(exuser2 != null){
+            return CommonResult.success("请求被拒绝 该名称已存在");
+        }
+        try{
+            infMapper.setUser(userid,password,username,permission);
+            return CommonResult.success("修改成功");
+        }catch (Exception e){
+            return CommonResult.fail(500, String.valueOf(e));
+        }
+    }
+
+    @Override
+    public CommonResult delUser(String userid, String password) {
+        User exuser = infMapper.selectUserByUserId(userid);
+        if(exuser == null){
+            return CommonResult.success("请求被拒绝 找不到指定id");
+        }
+        if(exuser.getPassword().equals(password)){
+            infMapper.delUser(userid);
+            return CommonResult.success("删除成功");
+        }else {
+            return CommonResult.success("请求被拒绝 密码错误");
+        }
+    }
+
 }

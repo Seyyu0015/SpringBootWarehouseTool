@@ -13,6 +13,28 @@
         select * from user where userid=#{userid};
     </select>
 
+    <select id="selectUserByUserName" resultType="com.example.pojo.User">
+        select * from user where username=#{name};
+    </select>
+
+    <insert id="addUser" parameterType="com.example.pojo.User" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO `wms`.`user` (`userid`, `password`,`username`,`permission`)
+        VALUES (#{userid},#{password},#{username},#{permission});
+    </insert>
+
+    <update id="setUser">
+        UPDATE user
+        SET username=#{username},
+            password=#{password},
+            permission=#{permission}
+        WHERE userid=#{userid};
+    </update>
+
+    <update id="delUser" parameterType="com.example.pojo.User">
+        DELETE FROM user
+        WHERE userid=#{userid};
+    </update>
+
 <!--Storage-->
     <select id="selectStorageByIW" resultType="com.example.pojo.Storage">
         select * from storage where itemid=#{itemid} and warehouseid=#{warehouseid};

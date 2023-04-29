@@ -15,6 +15,10 @@ import java.util.List;
  */
 public interface InfMapper {
     //User
+    User selectUserByUserName(String name);
+    int addUser(String userid,String password,String username,String permission);
+    int setUser(String userid,String password,String username,String permission);
+    int delUser(String userid);
     List<User> selectUser();
     User selectUserByUserId(String userid);
 
