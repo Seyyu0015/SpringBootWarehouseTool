@@ -96,7 +96,7 @@ public class RequirementServiceImp implements RequirementService {
         Requirement re = requirementMapper.selectRequirementById(id);
         System.out.println(re.getState());
         //未处理
-        if (re.getState().equals("Untreated")){
+        if (re.getState().equals("Untreated") || re.getState().equals("Rejected")){
             //->已完成
             if(state.equals("Implemented")){
                 switch (re.getType()) {
@@ -131,6 +131,36 @@ public class RequirementServiceImp implements RequirementService {
             }else if(state.equals("Rejected")){
                 requirementMapper.setRequirementStateById(id,state);
                 return CommonResult.success("执行完毕 "+re.getState()+"->"+state);
+            }
+
+        //已完成->撤销
+        }else if(re.getState().equals("Implemented") && state.equals("Canceled")){
+            switch (re.getType()) {
+                //出库
+                case "Out":
+                    if (addStorage(re.getItemid(), re.getWarehouseid(), re.getNumber())) {
+                        requirementMapper.setRequirementStateById(id, state);
+                        return CommonResult.success("执行完毕 " + re.getState() + "->" + state);
+                    } else {
+                        return CommonResult.success("执行失败 无法执行申请");
+                    }
+                    //入库
+                case "Add":
+                    if (removeStorage(re.getItemid(), re.getWarehouseid(), re.getNumber())) {
+                        requirementMapper.setRequirementStateById(id, state);
+                        return CommonResult.success("执行完毕 " + re.getState() + "->" + state);
+                    } else {
+                        return CommonResult.success("执行失败 无法执行申请");
+                    }
+                    //转移
+                case "Transfer":
+                    if (removeStorage(re.getItemid(), re.getNewwarehouseid(), re.getNumber())
+                            && addStorage(re.getItemid(), re.getWarehouseid(), re.getNumber())) {
+                        requirementMapper.setRequirementStateById(id, state);
+                        return CommonResult.success("执行完毕 " + re.getState() + "->" + state);
+                    } else {
+                        return CommonResult.success("执行失败 无法执行申请");
+                    }
             }
         }
         return CommonResult.success("非法转化方式"+re.getState()+"->"+state);
