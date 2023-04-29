@@ -23,7 +23,7 @@ public interface RequirementMapper {
                        int number,
                        int userid,
                        Date datetime,
-                       int newwarehouseid);
+                       Integer newwarehouseid);
     List<Requirement> selectRequirement();
 
 }

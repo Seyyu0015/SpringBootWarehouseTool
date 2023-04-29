@@ -59,11 +59,23 @@ public class RequirementServiceImp implements RequirementService {
         if(exw == null){
             return CommonResult.success("仓库不存在");
         }
-        if(type.equals("Transfer") && exw2 == null){
-            return CommonResult.success("新仓库");
-        }
         if(exi == null){
             return CommonResult.success("物品不存在");
+        }
+        if(type.equals("Transfer")){
+            if(exw2 == null) {
+                return CommonResult.success("新仓库");
+            }else {
+                requirementMapper.addRequirement(type,
+                        exi.getId(),
+                        exw.getId(),
+                        number,
+                        user.getId(),
+                        time,
+                        exw2.getId()
+                );
+                return CommonResult.success("请求创建成功");
+            }
         }
 
         requirementMapper.addRequirement(type,
@@ -72,7 +84,7 @@ public class RequirementServiceImp implements RequirementService {
                 number,
                 user.getId(),
                 time,
-                exw2.getId()
+                null
                 );
         return CommonResult.success("请求创建成功");
     }
