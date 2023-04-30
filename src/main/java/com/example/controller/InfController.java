@@ -29,6 +29,8 @@ public class InfController {
     @GetMapping("/user")
     @ResponseBody
     public CommonResult selectUserList(String byid,String byper){
+        if(byid!=null&&byid.equals("")){byid = null;}
+        if(byper!=null&&byper.equals("")){byper = null;}
         return infService.queryUserList(byid,byper);
     }
 

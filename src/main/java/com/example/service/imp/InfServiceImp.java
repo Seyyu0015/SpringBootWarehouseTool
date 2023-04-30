@@ -25,6 +25,7 @@ public class InfServiceImp implements InfService {
 
     @Override
     public CommonResult queryUserList(String byid,String byper) {
+
         List<User> users = infMapper.selectUser();
         //应用筛选
         List<User> result = new ArrayList<>();
