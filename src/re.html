@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="getUser">发送请求</button>
+    <input type="text" v-model="byid">
+    <input type="text" v-model="byper">
+    <div v-for="item in users">{{item}}</div>
+</div>
+</body>
+
+</html>
+<script src="./js/vue.js"></script>
+<script src="./js/axios.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+          byid:"",
+          byper:"",
+          users:[]
+        },
+        methods: {
+            getUser(byid, byper) {
+              console.log(byid, byper)
+                axios.get("http://localhost:4006/user",{
+                  params:{
+                    byid:this.byid,
+                    byper:this.byper
+                  }
+                }).then(res => {
+                    console.log(this.byid)
+                    this.users = res.data.data
+                })
+            }
+        }
+    })
+    </script>
