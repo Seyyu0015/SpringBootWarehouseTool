@@ -1,0 +1,177 @@
+/*左侧侧边栏*/
+#tab
+{
+    display: flex;
+    float: left;
+    height: 100vh;
+    width: 20vw;
+    background-color: rgb(239, 239, 239);
+}
+
+#user
+{
+    height: 100px;
+    display: flex;
+    float: both;
+    background-color: hsl(0, 32%, 58%);
+}
+
+#photo
+{
+    padding: 5px;
+}
+
+#user_left{
+    padding: 5px;   
+}
+
+#user_inform
+{
+    font-size: 5px;
+    height: 60px;
+    width: 130px;
+    background-color: hsl(217, 100%, 50%);
+}
+
+#logout
+{
+    margin-top:5px;
+}
+
+/* 右侧 */
+#right
+{
+    background-color: aquamarine;
+    width: 100vw;
+    height: 100vh;
+}
+/* 顶端 */
+#top_tab
+{
+    background-color: aqua;
+    width: 100vw;
+    height: 40px;
+}
+
+.top_button
+{   
+    font-weight: bold;
+    margin-left: 10px;
+    border: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 16px;
+    height: 40px;
+    width: auto;
+    border-radius: 25px;
+}
+
+#sec_tab
+{
+    margin-top: 10px;
+    background-color: forestgreen;
+    width: 100vw;
+    height: 50px;
+}
+
+.sec_button
+{   
+    font-weight: bold;
+    margin-left: 10px;
+    border: 0px;
+    font-size: 20px;
+    height: 40px;
+    width: auto;
+    border-radius: 25px;
+    background: none;
+
+}
+
+/* 操作栏 */
+.all_actions
+{
+    margin-top: 5px;
+    background-color: aqua;
+    width: 100vw;
+    height: 290px;
+}
+
+.actions
+{   
+
+    width: 140px;
+
+    padding: 8px;
+    margin-left: 8px;
+    float: left;
+
+    border-radius: 5px;
+
+    background-color: rgb(239, 239, 239);
+
+}
+
+.actions_title{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.actions_part_input
+{
+    width: 130px;
+    height: 11px;
+    font-size: 11px;
+}
+
+.actions_part{
+    margin-top: 3px;
+}
+
+.actions_part_text{
+    font-size: 8px;
+}
+
+.actions_part_message{
+    font-size: 12px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.actions_button{
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 8px;
+}
+
+/* 搜索栏 */
+.searchbar
+{
+    height: 40px;
+    background-color: blueviolet;
+}
+/* 用户搜索栏 */
+.searchbar_user
+{
+
+}
+
+.searchbar_part{
+    margin: 10px;
+    display: flex;
+    float: left;
+}
+
+.searchbar_title
+{
+    margin-right: 5px;
+}
+
+.searchbar_button
+{
+    font-size: 8px;
+    padding-left: 18px;
+    padding-right: 18px;
+    border-radius: 8px;
+}

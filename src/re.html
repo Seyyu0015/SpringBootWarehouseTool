@@ -12,6 +12,7 @@
     <button @click="getUser">发送请求</button>
     <input type="text" v-model="byid">
     <input type="text" v-model="byper">
+    <div>{{message}}</div>
     <div v-for="item in users">{{item}}</div>
 </div>
 </body>
@@ -23,6 +24,7 @@
     const vm = new Vue({
         el: '#app',
         data: {
+          message:"1",
           byid:"",
           byper:"",
           users:[]
@@ -36,7 +38,7 @@
                     byper:this.byper
                   }
                 }).then(res => {
-                    console.log(this.byid)
+                    console.log(res.data.data)
                     this.users = res.data.data
                 })
             }

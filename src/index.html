@@ -1,34 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 
 <body>
   <div id="app">
-    <div id="tabbar">
-      1
+    <!-- 左侧侧边栏 -->
+    <div id="tab">
+      <div id="user">
+        <div id="photo_div">
+          <img id="photo" src="./img/photo.png" width="90" height="90" alt="">
+        </div>
+        <div id="user_left">
+          <div id="user_inform">
+            用户名：田宇<br>
+            用户ID：13181310731<br>
+            用户权限：管理员<br>
+          </div>
+          <button id="logout">
+            登出
+          </button>
+        </div>
+      </div>
     </div>
-    <el-button @click="visible = true">Button</el-button>
-    <el-dialog :visible.sync="visible" title="Hello world">
-      <p>Try Element</p>
-    </el-dialog>
+
+    <!-- 右侧 -->
+    <div id="right">
+      <!-- 右侧顶端栏 -->
+      <div id="top_tab">
+        <button class="top_button" id="kcgl">库存管理</button>
+        <button class="top_button" id="yhgl">用户管理</button>
+        <button class="top_button" id="sqgl">申请管理</button>
+      </div>
+
+      <!-- 右侧第二顶端栏 -->
+      <div id="sec_tab">
+        <button class="sec_button" id="jlgl">记录管理</button>
+        <button class="sec_button" id="wpgl">物品管理</button>
+        <button class="sec_button" id="ckgl">仓库管理</button>
+      </div>
+
+      <!-- 操作栏 -->
+      <div class="all_actions">
+        <div class="actions" id="addStorage">
+          <div class="actions_title">添加记录</div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品id</div>
+            <input class="actions_part_input" type="text" id="addStorage_itemid">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品id</div>
+            <input class="actions_part_input" type="text" id="addStorage_warehouseid">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品id</div>
+            <input class="actions_part_input" type="text" id="addStorage_number">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品id</div>
+            <input class="actions_part_input" type="text" id="addStorage_number">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品id</div>
+            <input class="actions_part_input" type="text" id="addStorage_number">
+          </div>
+          <div class="actions_part_message">提示信息</div>
+          <button class="actions_button">执行</button>
+        </div>
+
+
+        <div class="actions" id="addStorage">
+          <div class="actions_title">添加记录</div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品id</div>
+            <input class="actions_part_input" type="text" id="addStorage_itemid">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品id</div>
+            <input class="actions_part_input" type="text" id="addStorage_warehouseid">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品id</div>
+            <input class="actions_part_input" type="text" id="addStorage_number">
+          </div>
+          <div class="actions_part_message">提示信息</div>
+          <button class="actions_button">执行</button>
+        </div>
+      </div>
+
+      <!-- 搜索栏 -->
+      <div class="searchbar">
+        <div id="searchbar_user">
+          <div class="searchbar_part">
+            <div class="searchbar_title">用户id</div>
+            <input type="text" class="searchbar_input1">
+          </div>
+          <div class="searchbar_part">
+            <div class="searchbar_title">用户权限</div>
+            <input type="text" class="searchbar_input2">
+          </div>
+          <div class="searchbar_part">
+            <button class="searchbar_button" @click="getUser">搜索</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 展示表格 -->
+      <div v-for="item in users">{{item}}</div>
+    </div>
   </div>
 </body>
 
 </html>
+
 <script src="./js/vue.js"></script>
 <script src="./js/axios.js"></script>
-<script src="./js/element.js"></script>
-<script src="./mode/element"></script>
+<style type="text/css">@import"css.css";</style>
 
 <script>
     const vm = new Vue({
         el: '#app',
         data: {
+          message:"1",
           byid:"",
           byper:"",
           users:[]
@@ -42,10 +140,10 @@
                     byper:this.byper
                   }
                 }).then(res => {
-                    console.log(this.byid)
+                    console.log(res.data.data)
                     this.users = res.data.data
                 })
             }
         }
     })
-    </script>
+</script>
