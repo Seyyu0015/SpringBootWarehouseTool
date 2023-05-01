@@ -18,13 +18,9 @@
         </div>
         <div id="user_left">
           <div id="user_inform">
-            用户名：用户名<br>
-            用户ID：123456789<br>
-            用户权限：管理员<br>
+            UID:{{userid}}<br>
+            权限：{{permission}}<br>
           </div>
-          <button id="logout">
-            登出
-          </button>
         </div>
       </div>
     </div>
@@ -46,47 +42,37 @@
       </div>
 
       <!-- 操作栏 -->
+      
       <div class="all_actions">
-        <div class="actions" id="addStorage">
-          <div class="actions_title">添加记录</div>
+        <!-- 登录 -->
+        <div v-if="login_if" class="actions">
+          <div class="actions_title">登录</div>
           <div class="actions_part">
-            <div class="actions_part_text">物品id</div>
-            <input class="actions_part_input" type="text" id="addStorage_itemid">
+            <div class="actions_part_text">UID</div>
+            <input class="actions_part_input" v-model="userid" type="text">
           </div>
           <div class="actions_part">
-            <div class="actions_part_text">物品id</div>
-            <input class="actions_part_input" type="text" id="addStorage_warehouseid">
+            <div class="actions_part_text">密码</div>
+            <input class="actions_part_input" v-model="password" type="password">
           </div>
-          <div class="actions_part">
-            <div class="actions_part_text">物品id</div>
-            <input class="actions_part_input" type="text" id="addStorage_number">
-          </div>
-          <div class="actions_part">
-            <div class="actions_part_text">物品id</div>
-            <input class="actions_part_input" type="text" id="addStorage_number">
-          </div>
-          <div class="actions_part">
-            <div class="actions_part_text">物品id</div>
-            <input class="actions_part_input" type="text" id="addStorage_number">
-          </div>
-          <div class="actions_part_message">提示信息</div>
-          <button class="actions_button">执行</button>
+          <div class="actions_part_message">{{login_message}}</div>
+          <button class="actions_button" @click="login">执行</button>
         </div>
 
-
-        <div class="actions" id="addStorage">
+        <!-- v-if="permission === 'administrator' " -->
+        <div class="actions">
           <div class="actions_title">添加记录</div>
           <div class="actions_part">
             <div class="actions_part_text">物品id</div>
-            <input class="actions_part_input" type="text" id="addStorage_itemid">
+            <input class="actions_part_input" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">物品id</div>
-            <input class="actions_part_input" type="text" id="addStorage_warehouseid">
+            <input class="actions_part_input" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">物品id</div>
-            <input class="actions_part_input" type="text" id="addStorage_number">
+            <input class="actions_part_input" type="text">
           </div>
           <div class="actions_part_message">提示信息</div>
           <button class="actions_button">执行</button>
@@ -97,12 +83,15 @@
       <div class="searchbar">
         <div id="searchbar_user">
           <div class="searchbar_part">
-            <div class="searchbar_title">用户id</div>
-            <input type="text" class="searchbar_input1">
+            <div class="searchbar_title">{{search_title}}</div>
+            <input type="text" class="searchbar_input1" v-model="search1">
           </div>
           <div class="searchbar_part">
-            <div class="searchbar_title">用户权限</div>
-            <input type="text" class="searchbar_input2">
+            <div class="searchbar_title">{{search_title2}}</div>
+            <select id="searchbar_select" v-model="search2">
+              <option value="normal">normal</option>
+              <option value="administrator">administrator</option>
+            </select>
           </div>
           <div class="searchbar_part">
             <button class="searchbar_button" @click="getUser">搜索</button>
@@ -139,18 +128,48 @@
     const vm = new Vue({
         el: '#app',
         data: {
-          message:"1",
-          byid:"",
-          byper:"",
-          users:[]
+          // 用户数据
+          userid:"未登录",
+          permission:"未登录",
+          login_message:"",
+          login_if:true,
+          users:[],
+
+          //搜索数据
+          search_title:"用户id",
+          search_title2:"用户权限",
+          search1:"",
+          search2:""
         },
         methods: {
-            getUser(byid, byper) {
-              console.log(byid, byper)
+            login(userid, password) {
+              console.log(userid, password)
+                axios.get("http://localhost:4006/login",{
+                  params:{
+                    userid:this.userid,
+                    password:this.password
+                  }
+                }).then(res => {
+                    console.log(res.data)
+                    if(res.data.data === "administrator"){
+                      this.permission = res.data.data
+                      this.login_if = false
+                      alert("登录成功")
+                    }else if(res.data.data === "normal"){
+                      this.permission = res.data.data
+                      this.login_if = false
+                      alert("登录成功")
+                    }else{
+                      this.login_message = res.data.data
+                    }
+                })
+            },
+            getUser(search1, search2) {
+              console.log(search1, search2)
                 axios.get("http://localhost:4006/user",{
                   params:{
-                    byid:this.byid,
-                    byper:this.byper
+                    byid:this.search1,
+                    byper:this.search2
                   }
                 }).then(res => {
                     console.log(res.data.data)

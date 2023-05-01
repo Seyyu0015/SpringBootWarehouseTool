@@ -29,7 +29,7 @@ public class LoginServiceImp implements LoginService {
             }
 
             if (password.equals(user.getPassword())) {
-                return CommonResult.success(user);
+                return CommonResult.success(user.getPermission());
             } else {
                 return CommonResult.success("账号密码不匹配");
             }
