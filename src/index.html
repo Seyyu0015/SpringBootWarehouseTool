@@ -18,8 +18,8 @@
         </div>
         <div id="user_left">
           <div id="user_inform">
-            用户名：田宇<br>
-            用户ID：13181310731<br>
+            用户名：用户名<br>
+            用户ID：123456789<br>
             用户权限：管理员<br>
           </div>
           <button id="logout">
@@ -111,7 +111,20 @@
       </div>
 
       <!-- 展示表格 -->
-      <div v-for="item in users">{{item}}</div>
+      <table class="table">
+        <tr>
+          <td class="table_title">ID</td>
+          <td class="table_title">用户名</td>
+          <td class="table_title">权限</td>
+          <td class="table_title">密码</td>
+        </tr>
+        <tr v-for="item in users">
+          <td class="table_unit">{{item.userid}}</td>
+          <td class="table_unit">{{item.username}}</td>
+          <td class="table_unit">{{item.permission}}</td>
+          <td class="table_unit">{{item.password}}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </body>

@@ -148,14 +148,11 @@
 /* 搜索栏 */
 .searchbar
 {
+    width: 100vw;
     height: 40px;
     background-color: blueviolet;
 }
 /* 用户搜索栏 */
-.searchbar_user
-{
-
-}
 
 .searchbar_part{
     margin: 10px;
@@ -174,4 +171,29 @@
     padding-left: 18px;
     padding-right: 18px;
     border-radius: 8px;
+}
+
+/* 展示表格 */
+.table
+{
+    margin-left: 10px;
+    position: absolute;
+    left: 20vw;
+    background-color: rgb(175, 175, 175);
+    display: flex;
+    float: left;
+}
+
+tr,td{
+    padding: 8px;
+    border-color: rgb(87, 87, 87);
+    color: rgb(52, 52, 53);
+}
+
+tr:nth-child(even){
+    background-color: #ffffff;
+}
+
+tr:nth-child(odd){
+    background-color: rgb(242, 242, 242);
 }
