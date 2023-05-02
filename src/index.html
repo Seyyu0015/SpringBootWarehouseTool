@@ -29,16 +29,18 @@
     <div id="right">
       <!-- 右侧顶端栏 -->
       <div id="top_tab">
-        <button class="top_button" id="kcgl">库存管理</button>
-        <button class="top_button" id="yhgl">用户管理</button>
-        <button class="top_button" id="sqgl">申请管理</button>
+        <button class="top_button">库存管理</button>
+        <button class="top_button">用户管理</button>
+        <button class="top_button">申请管理</button>
+        <button class="top_button">库存查询</button>
+        <button class="top_button">申请填写</button>
       </div>
 
       <!-- 右侧第二顶端栏 -->
       <div id="sec_tab">
-        <button class="sec_button" id="jlgl">记录管理</button>
-        <button class="sec_button" id="wpgl" @click="getItem">物品管理</button>
-        <button class="sec_button" id="ckgl">仓库管理</button>
+        <button class="sec_button" >记录管理</button>
+        <button class="sec_button" @click="getItem">物品管理</button>
+        <button class="sec_button" @click="getWarehouse">仓库管理</button>
       </div>
 
       <!-- 操作栏 -->
@@ -98,7 +100,7 @@
         </div>
 
         <!-- 添加物品 -->
-        <div class="actions">
+        <div class="actions" v-if="permission === 'administrator' ">
           <div class="actions_title">添加物品</div>
           <div class="actions_part">
             <div class="actions_part_text">物品名称</div>
@@ -113,7 +115,7 @@
         </div>
 
         <!-- 修改物品 -->
-        <div class="actions">
+        <div class="actions" v-if="permission === 'administrator' ">
           <div class="actions_title">添加物品</div>
           <div class="actions_part">
             <div class="actions_part_text">原物品名称</div>
@@ -130,10 +132,45 @@
           <div class="actions_part_message">{{item_message2}}</div>
           <button class="actions_button" @click="setItem">执行</button>
         </div>
+
+        <!-- 添加仓库 -->
+        <div class="actions">
+          <div class="actions_title">添加仓库</div>
+          <div class="actions_part">
+            <div class="actions_part_text">仓库名称</div>
+            <input class="actions_part_input" v-model="warehouse_name" type="text">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">仓库位置</div>
+            <input class="actions_part_input" v-model="warehouse_location" type="text">
+          </div>
+          <div class="actions_part_message">{{warehouse_message}}</div>
+          <button class="actions_button" @click="addWarehouse">执行</button>
+        </div>
+
+        <!-- 添加仓库 -->
+        <div class="actions">
+          <div class="actions_title">修改仓库</div>
+          <div class="actions_part">
+            <div class="actions_part_text">原仓库名称</div>
+            <input class="actions_part_input" v-model="warehouse_org_name" type="text">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">新仓库名称</div>
+            <input class="actions_part_input" v-model="warehouse_new_name" type="text">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">新仓库位置</div>
+            <input class="actions_part_input" v-model="warehouse_new_location" type="text">
+          </div>
+          <div class="actions_part_message">{{warehouse_message2}}</div>
+          <button class="actions_button" @click="setWarehouse">执行</button>
+        </div>
+
       </div>
 
       <!-- 搜索栏 -->
-      <div class="searchbar">
+      <div class="searchbar" v-if="permission === 'administrator' ">
         <div id="searchbar_user">
           <div class="searchbar_part">
             <div class="searchbar_title">{{search_title}}</div>
@@ -195,7 +232,7 @@
       </table>
 
       <!-- 物品表 -->
-      <table class="table">
+      <table v-if="permission === 'administrator' " class="table">
         <tr>
           <td class="table_title">ID</td>
           <td class="table_title">物品名</td>
@@ -207,6 +244,20 @@
           <td class="table_unit">{{item.itemname}}</td>
           <td class="table_unit">{{item.unit}}</td>
           <td class="table_unit">{{item.datetime}}</td>
+        </tr>
+      </table>
+
+      <!-- 仓库表 -->
+      <table class="table">
+        <tr>
+          <td class="table_title">ID</td>
+          <td class="table_title">仓库名</td>
+          <td class="table_title">仓库位置</td>
+        </tr>
+        <tr v-for="item in warehouses">
+          <td class="table_unit">{{item.id}}</td>
+          <td class="table_unit">{{item.name}}</td>
+          <td class="table_unit">{{item.location}}</td>
         </tr>
       </table>
     </div>
@@ -256,6 +307,17 @@
           item_name2:"",
           item_unit2:"",
           item_message2:"",
+
+          //仓库
+          warehouses:[],
+          warehouse_name:"",
+          warehouse_location:"",
+          warehouse_org_name:"",
+          warehouse_new_name:"",
+          warehouse_new_location:"",
+          warehouse_message:"",
+          warehouse_message2:"",
+
         },
         methods: {
             login() {
@@ -331,7 +393,6 @@
             },
 
             getItem() {
-              console.log()
                 axios.get("http://localhost:4006/item").then(res => {
                     console.log(res.data.data)
                     this.items = res.data.data
@@ -361,6 +422,38 @@
                 }).then(res => {
                     this.getItem()
                     console.log(res.data.data)
+                    this.item_message2 = res.data.data 
+                })
+            },
+
+            getWarehouse() {
+                axios.get("http://localhost:4006/warehouse").then(res => {
+                    console.log(res.data.data)
+                    this.warehouses = res.data.data
+                })
+            },
+
+            addWarehouse() {
+                axios.get("http://localhost:4006/addWarehouse",{
+                  params:{
+                    name:this.warehouse_name,
+                    location:this.warehouse_location,
+                  }
+                }).then(res => {
+                    this.getWarehouse()
+                    this.warehouse_message = res.data.data 
+                })
+            },
+
+            setWarehouse() {
+                axios.get("http://localhost:4006/setWarehouse",{
+                  params:{
+                    newname:this.warehouse_new_name,
+                    location:this.warehouse_new_location,
+                    name:this.warehouse_org_name,
+                  }
+                }).then(res => {
+                    this.getWarehouse()
                     this.item_message2 = res.data.data 
                 })
             },
