@@ -113,6 +113,13 @@
     font-size: 11px;
 }
 
+.actions_part_select
+{
+    width: 138px;
+    height: 18px;
+    font-size: 11px;
+}
+
 .actions_part{
     margin-top: 3px;
 }
