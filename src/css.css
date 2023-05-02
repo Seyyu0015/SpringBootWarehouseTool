@@ -47,6 +47,22 @@
 
 .top_button
 {   
+    color: #4f4f4f;
+    font-weight: bold;
+    margin-left: 10px;
+    border: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 16px;
+    height: 40px;
+    width: auto;
+    border-radius: 25px;
+}
+
+.top_button_notActive
+{   
+    background-color: #ffffff;
+    color: #b2adad;
     font-weight: bold;
     margin-left: 10px;
     border: 0px;
@@ -67,6 +83,21 @@
 
 .sec_button
 {   
+    text-decoration: underline;
+    font-weight: bold;
+    margin-left: 10px;
+    border: 0px;
+    font-size: 20px;
+    height: 40px;
+    width: auto;
+    border-radius: 25px;
+    background: none;
+
+}
+
+.sec_button_notActive
+{   
+
     font-weight: bold;
     margin-left: 10px;
     border: 0px;

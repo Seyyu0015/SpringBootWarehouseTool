@@ -29,18 +29,18 @@
     <div id="right">
       <!-- 右侧顶端栏 -->
       <div id="top_tab">
-        <button class="top_button">库存管理</button>
-        <button class="top_button" @click="getUser">用户管理</button>
-        <button class="top_button">申请管理</button>
-        <button class="top_button">库存查询</button>
-        <button class="top_button">申请填写</button>
+        <button :class="{top_button:top_tab_state==1, top_button_notActive:top_tab_state!=1,}" @click="getStorage">库存管理</button>
+        <button :class="{top_button:top_tab_state==2, top_button_notActive:top_tab_state!=2,}" @click="getUser">用户管理</button>
+        <button :class="{top_button:top_tab_state==3, top_button_notActive:top_tab_state!=3,}" @click="getRequirement">申请管理</button>
+        <button :class="{top_button:top_tab_state==4, top_button_notActive:top_tab_state!=4,}" @click="getStorageB">库存查询</button>
+        <button :class="{top_button:top_tab_state==5, top_button_notActive:top_tab_state!=5,}" @click="getRequirementByUserid">申请填写</button>
       </div>
 
       <!-- 右侧第二顶端栏 -->
-      <div id="sec_tab" v-if="permission === 'administrator' ">
-        <button class="sec_button" >记录管理</button>
-        <button class="sec_button" @click="getItem">物品管理</button>
-        <button class="sec_button" @click="getWarehouse">仓库管理</button>
+      <div id="sec_tab" v-if="(permission === 'ad' && top_tab_state==1)">
+        <button :class="{sec_button:sec_tab_state==1,sec_button_notActive:sec_tab_state!=1}" @click="getStorage">记录管理</button>
+        <button :class="{sec_button:sec_tab_state==2,sec_button_notActive:sec_tab_state!=2}" @click="getItem">物品管理</button>
+        <button :class="{sec_button:sec_tab_state==3,sec_button_notActive:sec_tab_state!=3}" @click="getWarehouse">仓库管理</button>
       </div>
 
       <!-- 操作栏 -->
@@ -220,7 +220,7 @@
         </div>
 
         <!-- 添加申请 -->
-        <div class="actions">
+        <div class="actions" v-if="permission === 'administrator'">
           <div class="actions_title">添加申请</div>
           <div class="actions_part_text">申请类型</div>
           <select class="actions_part_select" name="" id="" v-model="requirement_new_type">
@@ -249,7 +249,7 @@
         </div>
 
         <!-- 处理申请 -->
-        <div class="actions">
+        <div class="actions" v-if="permission === 'administrator'">
           <div class="actions_title">申请处理</div>
           <div class="actions_part">
             <div class="actions_part_text">申请id</div>
@@ -291,7 +291,7 @@
 
       <!-- 展示表格 -->
       <!-- 用户表 -->
-      <table class="table"  v-if="permission === 'administrator' ">
+      <table class="table"  v-if="permission === 'administrator'">
         <tr>
           <td class="table_title">ID</td>
           <td class="table_title">用户名</td>
@@ -401,7 +401,7 @@
         data: {
           // 用户数据
           userid:"147",
-          permission:"未登录",
+          permission:"ad",
           login_message:"",
           login_if:true,
 
@@ -466,6 +466,10 @@
           requirement_new_number:"",
           requirement_new_newwarehouse:"",
           requirement_new_message:"",
+
+          //页面控制
+          top_tab_state:1,
+          sec_tab_state:1,
         },
         methods: {
             login() {
@@ -489,6 +493,7 @@
             },
 
             getUser() {
+                this.top_tab_state = 2;
                 axios.get("http://localhost:4006/user",{
                   params:{
                     byid:this.search1,
@@ -557,6 +562,21 @@
             },
         
             getStorage() {
+              this.top_tab_state=1;
+              this.sec_tab_state=1;
+                axios.get("http://localhost:4006/storage",{
+                  params:{
+                    itemname:this.search1,
+                    warehousename:this.search2
+                  }
+                }).then(res => {
+                    console.log(res.data.data)
+                    this.storages = res.data.data
+                })
+            },
+
+            getStorageB() {
+              this.top_tab_state=4;
                 axios.get("http://localhost:4006/storage",{
                   params:{
                     itemname:this.search1,
@@ -569,6 +589,7 @@
             },
 
             getItem() {
+              this.sec_tab_state=2;
                 axios.get("http://localhost:4006/item").then(res => {
                     console.log(res.data.data)
                     this.items = res.data.data
@@ -603,6 +624,7 @@
             },
 
             getWarehouse() {
+              this.sec_tab_state=3;
                 axios.get("http://localhost:4006/warehouse").then(res => {
                     console.log(res.data.data)
                     this.warehouses = res.data.data
@@ -635,9 +657,22 @@
             },
 
             getRequirement() {
+              this.top_tab_state=3
                 axios.get("http://localhost:4006/requirement",{
                   params:{
                     userid:this.search1,
+                  }
+                }).then(res => {
+                    console.log(res.data.data)
+                    this.requirements = res.data.data
+                })
+            },
+
+            getRequirementByUserid() {
+              this.top_tab_state=5
+                axios.get("http://localhost:4006/requirement",{
+                  params:{
+                    userid:this.userid,
                   }
                 }).then(res => {
                     console.log(res.data.data)
