@@ -37,12 +37,11 @@
       <!-- 右侧第二顶端栏 -->
       <div id="sec_tab">
         <button class="sec_button" id="jlgl">记录管理</button>
-        <button class="sec_button" id="wpgl">物品管理</button>
+        <button class="sec_button" id="wpgl" @click="getItem">物品管理</button>
         <button class="sec_button" id="ckgl">仓库管理</button>
       </div>
 
       <!-- 操作栏 -->
-      
       <div class="all_actions">
         <!-- 登录 -->
         <!-- <div v-if="login_if" class="actions">
@@ -61,7 +60,7 @@
 
         <!-- v-if="permission === 'administrator'" -->
         <!-- 添加记录 -->
-        <div class="actions">
+        <div class="actions" v-if="permission === 'administrator' ">
           <div class="actions_title">添加记录</div>
           <div class="actions_part">
             <div class="actions_part_text">物品id</div>
@@ -80,7 +79,7 @@
         </div>
 
         <!-- 修改记录 -->
-        <div class="actions">
+        <div class="actions" v-if="permission === 'administrator' ">
           <div class="actions_title">修改记录</div>
           <div class="actions_part">
             <div class="actions_part_text">物品id</div>
@@ -96,6 +95,40 @@
           </div>
           <div class="actions_part_message">{{storage_message2}}</div>
           <button class="actions_button" @click="setStorage">执行</button>
+        </div>
+
+        <!-- 添加物品 -->
+        <div class="actions">
+          <div class="actions_title">添加物品</div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品名称</div>
+            <input class="actions_part_input" v-model="item_name" type="text">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品单位</div>
+            <input class="actions_part_input" v-model="item_unit" type="text">
+          </div>
+          <div class="actions_part_message">{{item_message}}</div>
+          <button class="actions_button" @click="addItem">执行</button>
+        </div>
+
+        <!-- 修改物品 -->
+        <div class="actions">
+          <div class="actions_title">添加物品</div>
+          <div class="actions_part">
+            <div class="actions_part_text">原物品名称</div>
+            <input class="actions_part_input" v-model="item_org_name" type="text">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品名称</div>
+            <input class="actions_part_input" v-model="item_name2" type="text">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品单位</div>
+            <input class="actions_part_input" v-model="item_unit2" type="text">
+          </div>
+          <div class="actions_part_message">{{item_message2}}</div>
+          <button class="actions_button" @click="setItem">执行</button>
         </div>
       </div>
 
@@ -138,7 +171,7 @@
       </table>
 
       <!-- 记录表 -->
-      <table class="table">
+      <table v-if="permission === 'administrator' " class="table">
         <tr>
           <td class="table_title">ID</td>
           <td class="table_title">名称</td>
@@ -157,6 +190,22 @@
           <td class="table_unit">{{item.warehouseid}}</td>
           <td class="table_unit">{{item.warehousename}}</td>
           <td class="table_unit">{{item.number}}</td>
+          <td class="table_unit">{{item.datetime}}</td>
+        </tr>
+      </table>
+
+      <!-- 物品表 -->
+      <table class="table">
+        <tr>
+          <td class="table_title">ID</td>
+          <td class="table_title">物品名</td>
+          <td class="table_title">单位</td>
+          <td class="table_title">最后出库时间</td>
+        </tr>
+        <tr v-for="item in items">
+          <td class="table_unit">{{item.id}}</td>
+          <td class="table_unit">{{item.itemname}}</td>
+          <td class="table_unit">{{item.unit}}</td>
           <td class="table_unit">{{item.datetime}}</td>
         </tr>
       </table>
@@ -196,11 +245,20 @@
           storage_itemid2:"",
           storage_warehouseid2:"",
           storage_number2:"",
-          storage_message2:""
+          storage_message2:"",
+
+          //物品
+          items:[],
+          item_name:"",
+          item_unit:"",
+          item_message:"",
+          item_org_name:"",
+          item_name2:"",
+          item_unit2:"",
+          item_message2:"",
         },
         methods: {
-            login(userid, password) {
-              console.log(userid, password)
+            login() {
                 axios.get("http://localhost:4006/login",{
                   params:{
                     userid:this.userid,
@@ -220,8 +278,7 @@
                 })
             },
 
-            getUser(search1, search2) {
-              console.log(search1, search2)
+            getUser() {
                 axios.get("http://localhost:4006/user",{
                   params:{
                     byid:this.search1,
@@ -233,7 +290,7 @@
                 })
             },
             
-            addStorage(storage_itemid, storage_warehouseid,storage_number) {
+            addStorage() {
                 axios.get("http://localhost:4006/addStorage",{
                   params:{
                     itemid:this.storage_itemid,
@@ -247,7 +304,7 @@
                 })
             },
 
-            setStorage(storage_itemid, storage_warehouseid,storage_number) {
+            setStorage() {
                 axios.get("http://localhost:4006/setStorage",{
                   params:{
                     itemid:this.storage_itemid2,
@@ -261,8 +318,7 @@
                 })
             },
         
-            getStorage(search1, search2) {
-              console.log(search1, search2)
+            getStorage() {
                 axios.get("http://localhost:4006/storage",{
                   params:{
                     itemname:this.search1,
@@ -271,6 +327,41 @@
                 }).then(res => {
                     console.log(res.data.data)
                     this.storages = res.data.data
+                })
+            },
+
+            getItem() {
+              console.log()
+                axios.get("http://localhost:4006/item").then(res => {
+                    console.log(res.data.data)
+                    this.items = res.data.data
+                })
+            },
+
+            addItem() {
+                axios.get("http://localhost:4006/addItem",{
+                  params:{
+                    itemname:this.item_name,
+                    unit:this.item_unit,
+                  }
+                }).then(res => {
+                    this.getItem()
+                    console.log(res.data.data)
+                    this.item_message = res.data.data 
+                })
+            },
+
+            setItem() {
+                axios.get("http://localhost:4006/setItem",{
+                  params:{
+                    itemname:this.item_org_name,
+                    newname:this.item_name2,
+                    unit:this.item_unit2,
+                  }
+                }).then(res => {
+                    this.getItem()
+                    console.log(res.data.data)
+                    this.item_message2 = res.data.data 
                 })
             },
           }

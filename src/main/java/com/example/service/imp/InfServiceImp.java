@@ -274,4 +274,9 @@ public class InfServiceImp implements InfService {
         }
     }
 
+    @Override
+    public CommonResult selectItem() {
+        return CommonResult.success(infMapper.selectItem());
+    }
+
 }

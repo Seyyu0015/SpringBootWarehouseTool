@@ -30,4 +30,6 @@ public interface InfService {
     CommonResult setUser(String userid, String username, String password, String permission);
 
     CommonResult delUser(String userid, String password);
+
+    CommonResult selectItem();
 }

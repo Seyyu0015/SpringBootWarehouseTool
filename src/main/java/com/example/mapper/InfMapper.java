@@ -28,6 +28,7 @@ public interface InfMapper {
     int setStorage(int itemid, int warehouseid,int number);
 
     //Item
+    List<Item> selectItem();
     int setItemDateById(int id,Date date);
     int addItem(String itemname, String unit, Date date);
     int setItem(String itemname, String newname, String unit);

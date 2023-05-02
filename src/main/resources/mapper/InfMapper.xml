@@ -59,6 +59,10 @@
         select * from item where id=#{itemid};
     </select>
 
+    <select id="selectItem" resultType="com.example.pojo.Item">
+        select * from item;
+    </select>
+
     <select id="selectItemByName" resultType="com.example.pojo.Item">
         select * from item where itemname=#{itemname};
     </select>

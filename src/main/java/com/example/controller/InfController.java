@@ -103,6 +103,13 @@ public class InfController {
 
     //item
     @Operation(summary = "添加物品")
+    @GetMapping("/item")
+    @ResponseBody
+    public CommonResult item(){
+        return infService.selectItem();
+    }
+
+    @Operation(summary = "添加物品")
     @GetMapping("/addItem")
     @ResponseBody
     public CommonResult addItem(String itemname,String unit){
