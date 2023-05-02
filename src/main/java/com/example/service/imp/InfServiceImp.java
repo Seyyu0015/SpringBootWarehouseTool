@@ -97,7 +97,7 @@ public class InfServiceImp implements InfService {
         //应用筛选
         List<StorageDisplay> result = new ArrayList<>();
         for (StorageDisplay sd : storageDisplays){
-            if ((itemname.isEmpty() || sd.getItemname().equals(itemname))&&(warehousename.isEmpty() || sd.getWarehousename().equals(warehousename))){
+            if ((itemname==null || sd.getItemname().equals(itemname))&&(warehousename==null || sd.getWarehousename().equals(warehousename))){
                 result.add(sd);
             }
         }

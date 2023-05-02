@@ -60,6 +60,8 @@ public class InfController {
     @GetMapping("/storage")
     @ResponseBody
     public CommonResult selectStorageList(String itemname, String warehousename){
+        if(itemname!=null&&itemname.equals("")){itemname = null;}
+        if(warehousename!=null&&warehousename.equals("")){warehousename = null;}
         return infService.selectStorageList(itemname,warehousename);
     }
 

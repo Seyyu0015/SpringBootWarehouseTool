@@ -45,7 +45,7 @@
       
       <div class="all_actions">
         <!-- 登录 -->
-        <div v-if="login_if" class="actions">
+        <!-- <div v-if="login_if" class="actions">
           <div class="actions_title">登录</div>
           <div class="actions_part">
             <div class="actions_part_text">UID</div>
@@ -57,25 +57,26 @@
           </div>
           <div class="actions_part_message">{{login_message}}</div>
           <button class="actions_button" @click="login">执行</button>
-        </div>
+        </div> -->
 
-        <!-- v-if="permission === 'administrator' " -->
+        <!-- v-if="permission === 'administrator'" -->
+        <!-- 添加记录 -->
         <div class="actions">
           <div class="actions_title">添加记录</div>
           <div class="actions_part">
             <div class="actions_part_text">物品id</div>
-            <input class="actions_part_input" type="text">
+            <input class="actions_part_input" v-model="storage_itemid" type="text">
           </div>
           <div class="actions_part">
-            <div class="actions_part_text">物品id</div>
-            <input class="actions_part_input" type="text">
+            <div class="actions_part_text">仓库id</div>
+            <input class="actions_part_input" v-model="storage_warehouseid" type="text">
           </div>
           <div class="actions_part">
-            <div class="actions_part_text">物品id</div>
-            <input class="actions_part_input" type="text">
+            <div class="actions_part_text">物品数量</div>
+            <input class="actions_part_input" v-model="storage_number" type="text">
           </div>
-          <div class="actions_part_message">提示信息</div>
-          <button class="actions_button">执行</button>
+          <div class="actions_part_message">{{storage_message}}</div>
+          <button class="actions_button" @click="addStorage">执行</button>
         </div>
       </div>
 
@@ -94,13 +95,15 @@
             </select>
           </div>
           <div class="searchbar_part">
-            <button class="searchbar_button" @click="getUser">搜索</button>
+            <button class="searchbar_button" v-if="permission === 'administrator' " @click="getUser">搜索用户</button>
+            <button class="searchbar_button" @click="getStorage">搜索记录</button>
           </div>
         </div>
       </div>
 
       <!-- 展示表格 -->
-      <table class="table">
+      <!-- 用户表 -->
+      <table v-if="permission === 'administrator' " class="table">
         <tr>
           <td class="table_title">ID</td>
           <td class="table_title">用户名</td>
@@ -112,6 +115,30 @@
           <td class="table_unit">{{item.username}}</td>
           <td class="table_unit">{{item.permission}}</td>
           <td class="table_unit">{{item.password}}</td>
+        </tr>
+      </table>
+
+      <!-- 记录表 -->
+      <table class="table">
+        <tr>
+          <td class="table_title">ID</td>
+          <td class="table_title">名称</td>
+          <td class="table_title">总量</td>
+          <td class="table_title">单位</td>
+          <td class="table_title">仓库ID</td>
+          <td class="table_title">仓库名称</td>
+          <td class="table_title">数量</td>
+          <td class="table_title">最后出库时间</td>
+        </tr>
+        <tr v-for="item in storages">
+          <td class="table_unit">{{item.id}}</td>
+          <td class="table_unit">{{item.itemname}}</td>
+          <td class="table_unit">{{item.totalnumber}}</td>
+          <td class="table_unit">{{item.unit}}</td>
+          <td class="table_unit">{{item.warehouseid}}</td>
+          <td class="table_unit">{{item.warehousename}}</td>
+          <td class="table_unit">{{item.number}}</td>
+          <td class="table_unit">{{item.datetime}}</td>
         </tr>
       </table>
     </div>
@@ -136,10 +163,17 @@
           users:[],
 
           //搜索数据
-          search_title:"用户id",
-          search_title2:"用户权限",
+          search_title:"物品名称",
+          search_title2:"仓库名称",
           search1:"",
-          search2:""
+          search2:"",
+
+          //记录
+          storages:[],
+          storage_itemid:"",
+          storage_warehouseid:"",
+          storage_number:"",
+          storage_message:""
         },
         methods: {
             login(userid, password) {
@@ -154,16 +188,15 @@
                     if(res.data.data === "administrator"){
                       this.permission = res.data.data
                       this.login_if = false
-                      alert("登录成功")
                     }else if(res.data.data === "normal"){
                       this.permission = res.data.data
                       this.login_if = false
-                      alert("登录成功")
                     }else{
                       this.login_message = res.data.data
                     }
                 })
             },
+
             getUser(search1, search2) {
               console.log(search1, search2)
                 axios.get("http://localhost:4006/user",{
@@ -175,7 +208,33 @@
                     console.log(res.data.data)
                     this.users = res.data.data
                 })
-            }
-        }
+            },
+            
+            addStorage(storage_itemid, storage_warehouseid,storage_number) {
+                axios.get("http://localhost:4006/addStorage",{
+                  params:{
+                    itemid:this.storage_itemid,
+                    warehouseid:this.storage_warehouseid,
+                    number:this.storage_number
+                  }
+                }).then(res => {
+                    console.log(res.data.data)
+                    this.storage_message = res.data.data 
+                })
+            },
+        
+            getStorage(search1, search2) {
+              console.log(search1, search2)
+                axios.get("http://localhost:4006/storage",{
+                  params:{
+                    itemname:this.search1,
+                    warehousename:this.search2
+                  }
+                }).then(res => {
+                    console.log(res.data.data)
+                    this.storages = res.data.data
+                })
+            },
+          }
     })
 </script>
