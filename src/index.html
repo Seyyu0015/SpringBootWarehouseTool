@@ -268,30 +268,31 @@
       </div>
 
       <!-- 搜索栏 -->
-      <div class="searchbar" >
+      <div v-if="permission =='ad' && ser_bar_state !=0" class="searchbar" >
         <div id="searchbar_user">
           <div class="searchbar_part">
             <div class="searchbar_title">{{search_title}}</div>
             <input type="text" class="searchbar_input1" v-model="search1">
           </div>
-          <div class="searchbar_part" v-if="permission === 'administrator' ">
+          <div class="searchbar_part" v-if="ser_bar_state ==1 || ser_bar_state ==2">
             <div class="searchbar_title">{{search_title2}}</div>
-            <select id="searchbar_select" v-model="search2">
+            <input v-if="ser_bar_state ==1" type="text" class="searchbar_input1" v-model="search2">
+            <select v-if="ser_bar_state ==2" id="searchbar_select" v-model="search3">
               <option value="normal">normal</option>
               <option value="administrator">administrator</option>
             </select>
           </div>
           <div class="searchbar_part">
-            <button class="searchbar_button" v-if="permission === 'administrator' " @click="getUser">搜索用户</button>
-            <button class="searchbar_button" v-if="permission === 'administrator' " @click="getStorage">搜索记录</button>
-            <button class="searchbar_button" @click="getRequirement">搜索申请</button>
+            <button class="searchbar_button" v-if="ser_bar_state ==2" @click="getUser">搜索用户</button>
+            <button class="searchbar_button" v-if="ser_bar_state ==1" @click="getStorage">搜索记录</button>
+            <button class="searchbar_button" v-if="ser_bar_state ==3" @click="getRequirement">搜索申请</button>
           </div>
         </div>
       </div>
 
       <!-- 展示表格 -->
       <!-- 用户表 -->
-      <table class="table"  v-if="permission === 'administrator'">
+      <table v-if="permission === 'ad' && top_tab_state==2" class="table">
         <tr>
           <td class="table_title">ID</td>
           <td class="table_title">用户名</td>
@@ -307,7 +308,7 @@
       </table>
 
       <!-- 记录表 -->
-      <table v-if="permission === 'administrator' " class="table">
+      <table v-if="permission === 'ad' && top_tab_state==1 && sec_tab_state ==1" class="table">
         <tr>
           <td class="table_title">ID</td>
           <td class="table_title">名称</td>
@@ -331,7 +332,7 @@
       </table>
 
       <!-- 物品表 -->
-      <table v-if="permission === 'administrator' " class="table">
+      <table v-if="permission === 'ad' && top_tab_state==1 && sec_tab_state ==2" class="table">
         <tr>
           <td class="table_title">ID</td>
           <td class="table_title">物品名</td>
@@ -347,7 +348,7 @@
       </table>
 
       <!-- 仓库表 -->
-      <table class="table" v-if="permission === 'administrator' ">
+      <table v-if="permission === 'ad' && top_tab_state==1 && sec_tab_state ==3" class="table">
         <tr>
           <td class="table_title">ID</td>
           <td class="table_title">仓库名</td>
@@ -361,7 +362,7 @@
       </table>
 
       <!-- 申请表 -->
-      <table class="table">
+      <table v-if="permission === 'ad' && top_tab_state==3" class="table">
         <tr>
           <td class="table_title">ID</td>
           <td class="table_title">类型</td>
@@ -406,10 +407,11 @@
           login_if:true,
 
           //搜索数据
-          search_title:"用户id",
-          search_title2:"仓库名称",
+          search_title:"物品",
+          search_title2:"仓库",
           search1:"",
           search2:"",
+          search3:"",
 
           //记录
           storages:[],
@@ -470,6 +472,7 @@
           //页面控制
           top_tab_state:1,
           sec_tab_state:1,
+          ser_bar_state:1,
         },
         methods: {
             login() {
@@ -493,11 +496,14 @@
             },
 
             getUser() {
+                this.ser_bar_state = 2;
+                this.search_title = "用户id"
+                this.search_title2 = "用户权限"
                 this.top_tab_state = 2;
                 axios.get("http://localhost:4006/user",{
                   params:{
                     byid:this.search1,
-                    byper:this.search2
+                    byper:this.search3
                   }
                 }).then(res => {
                     console.log(res.data.data)
@@ -562,6 +568,9 @@
             },
         
             getStorage() {
+              this.ser_bar_state=1;
+              this.search_title="物品";
+              this.search_title2="仓库";
               this.top_tab_state=1;
               this.sec_tab_state=1;
                 axios.get("http://localhost:4006/storage",{
@@ -576,6 +585,9 @@
             },
 
             getStorageB() {
+              this.ser_bar_state=1;
+              this.search_title="物品";
+              this.search_title2="仓库";
               this.top_tab_state=4;
                 axios.get("http://localhost:4006/storage",{
                   params:{
@@ -589,6 +601,7 @@
             },
 
             getItem() {
+              this.ser_bar_state=0
               this.sec_tab_state=2;
                 axios.get("http://localhost:4006/item").then(res => {
                     console.log(res.data.data)
@@ -624,6 +637,8 @@
             },
 
             getWarehouse() {
+              this.ser_bar_state=0;
+              this.search_title="用户id"
               this.sec_tab_state=3;
                 axios.get("http://localhost:4006/warehouse").then(res => {
                     console.log(res.data.data)
@@ -657,6 +672,7 @@
             },
 
             getRequirement() {
+              this.ser_bar_state=3
               this.top_tab_state=3
                 axios.get("http://localhost:4006/requirement",{
                   params:{
@@ -669,6 +685,7 @@
             },
 
             getRequirementByUserid() {
+              this.ser_bar_state=0
               this.top_tab_state=5
                 axios.get("http://localhost:4006/requirement",{
                   params:{
