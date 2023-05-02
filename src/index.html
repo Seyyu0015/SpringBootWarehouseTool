@@ -78,6 +78,25 @@
           <div class="actions_part_message">{{storage_message}}</div>
           <button class="actions_button" @click="addStorage">执行</button>
         </div>
+
+        <!-- 修改记录 -->
+        <div class="actions">
+          <div class="actions_title">修改记录</div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品id</div>
+            <input class="actions_part_input" v-model="storage_itemid2" type="text">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">仓库id</div>
+            <input class="actions_part_input" v-model="storage_warehouseid2" type="text">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品数量</div>
+            <input class="actions_part_input" v-model="storage_number2" type="text">
+          </div>
+          <div class="actions_part_message">{{storage_message2}}</div>
+          <button class="actions_button" @click="setStorage">执行</button>
+        </div>
       </div>
 
       <!-- 搜索栏 -->
@@ -173,7 +192,11 @@
           storage_itemid:"",
           storage_warehouseid:"",
           storage_number:"",
-          storage_message:""
+          storage_message:"",
+          storage_itemid2:"",
+          storage_warehouseid2:"",
+          storage_number2:"",
+          storage_message2:""
         },
         methods: {
             login(userid, password) {
@@ -218,8 +241,23 @@
                     number:this.storage_number
                   }
                 }).then(res => {
+                    this.getStorage()
                     console.log(res.data.data)
                     this.storage_message = res.data.data 
+                })
+            },
+
+            setStorage(storage_itemid, storage_warehouseid,storage_number) {
+                axios.get("http://localhost:4006/setStorage",{
+                  params:{
+                    itemid:this.storage_itemid2,
+                    warehouseid:this.storage_warehouseid2,
+                    number:this.storage_number2
+                  }
+                }).then(res => {
+                    this.getStorage()
+                    console.log(res.data.data)
+                    this.storage_message2 = res.data.data 
                 })
             },
         
