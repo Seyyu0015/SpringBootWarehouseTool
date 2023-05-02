@@ -20,7 +20,7 @@
         WHERE id=#{id};
     </update>
 
-    <insert id="addRequirement" parameterType="com.example.pojo.Requirement" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="addRequirementTransfer" parameterType="com.example.pojo.Requirement" useGeneratedKeys="true" keyProperty="id" >
         INSERT INTO `wms`.`requirement` (`type`,
                                          `itemid`,
                                          `warehouseid`,
@@ -35,6 +35,21 @@
                                                  #{userid},
                                                  #{datetime},
                                                  #{newwarehouseid});
+    </insert>
+
+    <insert id="addRequirement" parameterType="com.example.pojo.Requirement" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO `wms`.`requirement` (`type`,
+                                         `itemid`,
+                                         `warehouseid`,
+                                         `number`,
+                                         `userid`,
+                                         `datetime`)
+        VALUES (#{type},
+                #{itemid},
+                #{warehouseid},
+                #{number},
+                #{userid},
+                #{datetime});
     </insert>
 
     <!--User-->

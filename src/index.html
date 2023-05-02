@@ -219,6 +219,52 @@
           <button class="actions_button" @click="setWarehouse">执行</button>
         </div>
 
+        <!-- 添加申请 -->
+        <div class="actions">
+          <div class="actions_title">添加申请</div>
+          <div class="actions_part_text">申请类型</div>
+          <select class="actions_part_select" name="" id="" v-model="requirement_new_type">
+            <option value="Add">入库</option>
+            <option value="Out">出库</option>
+            <option value="Transfer">转移</option>
+          </select>
+          <div class="actions_part">
+            <div class="actions_part_text">仓库</div>
+            <input class="actions_part_input" v-model="requirement_new_warehouse" type="text">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">物品</div>
+            <input class="actions_part_input" v-model="requirement_new_itemname" type="text">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">数量</div>
+            <input class="actions_part_input" v-model="requirement_new_number" type="text">
+          </div>
+          <div class="actions_part">
+            <div class="actions_part_text">新仓库</div>
+            <input class="actions_part_input" v-model="requirement_new_newwarehouse" type="text">
+          </div>
+          <div class="actions_part_message">{{requirement_new_message}}</div>
+          <button class="actions_button" @click="addRequirement">执行</button>
+        </div>
+
+        <!-- 处理申请 -->
+        <div class="actions">
+          <div class="actions_title">申请处理</div>
+          <div class="actions_part">
+            <div class="actions_part_text">申请id</div>
+            <input class="actions_part_input" v-model="requirement_id" type="text">
+          </div>
+          <div class="actions_part_text">处理结果</div>
+          <select class="actions_part_select" name="" id="" v-model="requirement_state">
+            <option value="Implemented">已执行</option>
+            <option value="Rejected">已拒绝</option>
+            <option value="Canceled">已撤销</option>
+          </select>
+          <div class="actions_part_message">{{requirement_message}}</div>
+          <button class="actions_button" @click="setRequirement">执行</button>
+        </div>
+
       </div>
 
       <!-- 搜索栏 -->
@@ -354,7 +400,7 @@
         el: '#app',
         data: {
           // 用户数据
-          userid:"未登录",
+          userid:"147",
           permission:"未登录",
           login_message:"",
           login_if:true,
@@ -411,7 +457,15 @@
 
           //申请
           requirements:[],
-          requirement_user_id:"",
+          requirement_id:"",
+          requirement_state:"",
+          requirement_message:"",
+          requirement_new_type:"",
+          requirement_new_itemname:"",
+          requirement_new_warehouse:"",
+          requirement_new_number:"",
+          requirement_new_newwarehouse:"",
+          requirement_new_message:"",
         },
         methods: {
             login() {
@@ -592,27 +646,30 @@
             },
 
             addRequirement() {
-                axios.get("http://localhost:4006/addWarehouse",{
+                axios.get("http://localhost:4006/addRequirement",{
                   params:{
-                    name:this.warehouse_name,
-                    location:this.warehouse_location,
+                    type:this.requirement_new_type,
+                    itemname:this.requirement_new_itemname,
+                    warehouse:this.requirement_new_warehouse,
+                    number:this.requirement_new_number,
+                    userid:this.userid,
+                    newwarehouse:this.requirement_new_newwarehouse,
                   }
                 }).then(res => {
-                    this.getWarehouse()
-                    this.warehouse_message = res.data.data 
+                    this.getRequirement()
+                    this.requirement_new_newwarehouse = res.data.data 
                 })
             },
 
             setRequirement() {
-                axios.get("http://localhost:4006/setWarehouse",{
+                axios.get("http://localhost:4006/setRequirement",{
                   params:{
-                    newname:this.warehouse_new_name,
-                    location:this.warehouse_new_location,
-                    name:this.warehouse_org_name,
+                    id:this.requirement_id,
+                    state:this.requirement_state,
                   }
                 }).then(res => {
-                    this.getWarehouse()
-                    this.item_message2 = res.data.data 
+                    this.getRequirement()
+                    this.requirement_message = res.data.data 
                 })
             },
           }

@@ -21,9 +21,16 @@ public interface RequirementMapper {
                        int itemid,
                        int warehouseid,
                        int number,
-                       int userid,
+                       String userid,
+                       Date datetime);
+
+    int addRequirementTransfer(String type,
+                       int itemid,
+                       int warehouseid,
+                       int number,
+                       String userid,
                        Date datetime,
-                       Integer newwarehouseid);
+                       int newwarehouseid);
     List<Requirement> selectRequirement();
     Requirement selectRequirementById(int id);
 
