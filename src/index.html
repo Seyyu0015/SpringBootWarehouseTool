@@ -240,8 +240,8 @@
             <div class="actions_part_text">数量</div>
             <input class="actions_part_input" placeholder="1" v-model="requirement_new_number" type="text">
           </div>
-          <div class="actions_part">
-            <div class="actions_part_text"  v-if="requirement_new_type == 'Transfer'">新仓库</div>
+          <div class="actions_part" v-if="requirement_new_type == 'Transfer'">
+            <div class="actions_part_text" >新仓库</div>
             <input class="actions_part_input" placeholder="储物间" v-model="requirement_new_newwarehouse" type="text">
           </div>
           <div class="actions_part_message">{{requirement_new_message}}</div>
@@ -500,6 +500,9 @@
 
             getUser() {
                 this.ser_bar_state = 2;
+                this.search1 = "";
+                this.search2 = "";
+                this.search3 = "";
                 this.search_title = "用户id"
                 this.search_title2 = "用户权限"
                 this.top_tab_state = 2;
@@ -572,6 +575,9 @@
         
             getStorage() {
               this.ser_bar_state=1;
+              this.search1 = "";
+              this.search2 = "";
+              this.search3 = "";
               this.search_title="物品";
               this.search_title2="仓库";
               this.top_tab_state=1;
@@ -589,6 +595,9 @@
 
             getStorageB() {
               this.ser_bar_state=1;
+              this.search1 = "";
+                this.search2 = "";
+                this.search3 = "";
               this.search_title="物品";
               this.search_title2="仓库";
               this.top_tab_state=4;
@@ -605,6 +614,9 @@
 
             getItem() {
               this.ser_bar_state=0
+              this.search1 = "";
+                this.search2 = "";
+                this.search3 = "";
               this.sec_tab_state=2;
                 axios.get("http://localhost:4006/item").then(res => {
                     console.log(res.data.data)
@@ -641,6 +653,9 @@
 
             getWarehouse() {
               this.ser_bar_state=0;
+              this.search1 = "";
+                this.search2 = "";
+                this.search3 = "";
               this.search_title="用户id"
               this.sec_tab_state=3;
                 axios.get("http://localhost:4006/warehouse").then(res => {
@@ -676,6 +691,9 @@
 
             getRequirement() {
               this.ser_bar_state=3
+              this.search1 = "";
+                this.search2 = "";
+                this.search3 = "";
               this.top_tab_state=3
                 axios.get("http://localhost:4006/requirement",{
                   params:{
@@ -689,6 +707,9 @@
 
             getRequirementByUserid() {
               this.ser_bar_state=0
+              this.search1 = "";
+                this.search2 = "";
+                this.search3 = "";
               this.top_tab_state=5
                 axios.get("http://localhost:4006/requirement",{
                   params:{
