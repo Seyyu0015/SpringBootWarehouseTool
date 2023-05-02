@@ -37,7 +37,7 @@
       </div>
 
       <!-- 右侧第二顶端栏 -->
-      <div id="sec_tab" v-if="(permission === 'ad' && top_tab_state==1)">
+      <div id="sec_tab" v-if="(permission === 'administrator' && top_tab_state==1)">
         <button :class="{sec_button:sec_tab_state==1,sec_button_notActive:sec_tab_state!=1}" @click="getStorage">记录管理</button>
         <button :class="{sec_button:sec_tab_state==2,sec_button_notActive:sec_tab_state!=2}" @click="getItem">物品管理</button>
         <button :class="{sec_button:sec_tab_state==3,sec_button_notActive:sec_tab_state!=3}" @click="getWarehouse">仓库管理</button>
@@ -118,15 +118,15 @@
           <div class="actions_title">添加记录</div>
           <div class="actions_part">
             <div class="actions_part_text">物品id</div>
-            <input class="actions_part_input" v-model="storage_itemid" type="text">
+            <input class="actions_part_input" placeholder="1" v-model="storage_itemid" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">仓库id</div>
-            <input class="actions_part_input" v-model="storage_warehouseid" type="text">
+            <input class="actions_part_input" placeholder="1" v-model="storage_warehouseid" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">物品数量</div>
-            <input class="actions_part_input" v-model="storage_number" type="text">
+            <input class="actions_part_input" placeholder="1" v-model="storage_number" type="text">
           </div>
           <div class="actions_part_message">{{storage_message}}</div>
           <button class="actions_button" @click="addStorage">执行</button>
@@ -137,15 +137,15 @@
           <div class="actions_title">修改记录</div>
           <div class="actions_part">
             <div class="actions_part_text">物品id</div>
-            <input class="actions_part_input" v-model="storage_itemid2" type="text">
+            <input class="actions_part_input" placeholder="1" v-model="storage_itemid2" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">仓库id</div>
-            <input class="actions_part_input" v-model="storage_warehouseid2" type="text">
+            <input class="actions_part_input" placeholder="1" v-model="storage_warehouseid2" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">物品数量</div>
-            <input class="actions_part_input" v-model="storage_number2" type="text">
+            <input class="actions_part_input" placeholder="1" v-model="storage_number2" type="text">
           </div>
           <div class="actions_part_message">{{storage_message2}}</div>
           <button class="actions_button" @click="setStorage">执行</button>
@@ -156,11 +156,11 @@
           <div class="actions_title">添加物品</div>
           <div class="actions_part">
             <div class="actions_part_text">物品名称</div>
-            <input class="actions_part_input" v-model="item_name" type="text">
+            <input class="actions_part_input" placeholder="广角镜头" v-model="item_name" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">物品单位</div>
-            <input class="actions_part_input" v-model="item_unit" type="text">
+            <input class="actions_part_input" placeholder="个" v-model="item_unit" type="text">
           </div>
           <div class="actions_part_message">{{item_message}}</div>
           <button class="actions_button" @click="addItem">执行</button>
@@ -168,18 +168,18 @@
 
         <!-- 修改物品 -->
         <div class="actions" v-if="top_tab_state == 1 && sec_tab_state == 2">
-          <div class="actions_title">添加物品</div>
+          <div class="actions_title">修改物品</div>
           <div class="actions_part">
             <div class="actions_part_text">原物品名称</div>
-            <input class="actions_part_input" v-model="item_org_name" type="text">
+            <input class="actions_part_input" placeholder="广角镜头" v-model="item_org_name" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">物品名称</div>
-            <input class="actions_part_input" v-model="item_name2" type="text">
+            <input class="actions_part_input" placeholder="广角镜头 C25" v-model="item_name2" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">物品单位</div>
-            <input class="actions_part_input" v-model="item_unit2" type="text">
+            <input class="actions_part_input" placeholder="个" v-model="item_unit2" type="text">
           </div>
           <div class="actions_part_message">{{item_message2}}</div>
           <button class="actions_button" @click="setItem">执行</button>
@@ -190,11 +190,11 @@
           <div class="actions_title">添加仓库</div>
           <div class="actions_part">
             <div class="actions_part_text">仓库名称</div>
-            <input class="actions_part_input" v-model="warehouse_name" type="text">
+            <input class="actions_part_input" placeholder="储物间" v-model="warehouse_name" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">仓库位置</div>
-            <input class="actions_part_input" v-model="warehouse_location" type="text">
+            <input class="actions_part_input" placeholder="A1" v-model="warehouse_location" type="text">
           </div>
           <div class="actions_part_message">{{warehouse_message}}</div>
           <button class="actions_button" @click="addWarehouse">执行</button>
@@ -205,15 +205,15 @@
           <div class="actions_title">修改仓库</div>
           <div class="actions_part">
             <div class="actions_part_text">原仓库名称</div>
-            <input class="actions_part_input" v-model="warehouse_org_name" type="text">
+            <input class="actions_part_input" placeholder="储物间" v-model="warehouse_org_name" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">新仓库名称</div>
-            <input class="actions_part_input" v-model="warehouse_new_name" type="text">
+            <input class="actions_part_input" placeholder="储物间 E1" v-model="warehouse_new_name" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">新仓库位置</div>
-            <input class="actions_part_input" v-model="warehouse_new_location" type="text">
+            <input class="actions_part_input" placeholder="E1" v-model="warehouse_new_location" type="text">
           </div>
           <div class="actions_part_message">{{warehouse_message2}}</div>
           <button class="actions_button" @click="setWarehouse">执行</button>
@@ -230,22 +230,23 @@
           </select>
           <div class="actions_part">
             <div class="actions_part_text">仓库</div>
-            <input class="actions_part_input" v-model="requirement_new_warehouse" type="text">
+            <input class="actions_part_input" placeholder="柜台" v-model="requirement_new_warehouse" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">物品</div>
-            <input class="actions_part_input" v-model="requirement_new_itemname" type="text">
+            <input class="actions_part_input" placeholder="三脚架" v-model="requirement_new_itemname" type="text">
           </div>
           <div class="actions_part">
             <div class="actions_part_text">数量</div>
-            <input class="actions_part_input" v-model="requirement_new_number" type="text">
+            <input class="actions_part_input" placeholder="1" v-model="requirement_new_number" type="text">
           </div>
           <div class="actions_part">
-            <div class="actions_part_text">新仓库</div>
-            <input class="actions_part_input" v-model="requirement_new_newwarehouse" type="text">
+            <div class="actions_part_text"  v-if="requirement_new_type == 'Transfer'">新仓库</div>
+            <input class="actions_part_input" placeholder="储物间" v-model="requirement_new_newwarehouse" type="text">
           </div>
           <div class="actions_part_message">{{requirement_new_message}}</div>
-          <button class="actions_button" @click="addRequirement">执行</button>
+          <button v-if="permission == 'administrator'" class="actions_button" @click="addRequirement">执行</button>
+          <button v-if="permission == 'normal'" class="actions_button" @click="addRequirementB">执行</button>
         </div>
 
         <!-- 处理申请 -->
@@ -362,7 +363,7 @@
       </table>
 
       <!-- 申请表 -->
-      <table v-if="top_tab_state==3" class="table">
+      <table v-if="top_tab_state==3 || top_tab_state==5" class="table">
         <tr>
           <td class="table_title">ID</td>
           <td class="table_title">类型</td>
@@ -484,9 +485,11 @@
                 }).then(res => {
                     console.log(res.data)
                     if(res.data.data === "administrator"){
+                      this.getStorage()
                       this.permission = res.data.data
                       this.login_if = false
                     }else if(res.data.data === "normal"){
+                      this.getStorageB()
                       this.permission = res.data.data
                       this.login_if = false
                     }else{
@@ -709,6 +712,22 @@
                   }
                 }).then(res => {
                     this.getRequirement()
+                    this.requirement_new_newwarehouse = res.data.data 
+                })
+            },
+
+            addRequirementB() {
+                axios.get("http://localhost:4006/addRequirement",{
+                  params:{
+                    type:this.requirement_new_type,
+                    itemname:this.requirement_new_itemname,
+                    warehouse:this.requirement_new_warehouse,
+                    number:this.requirement_new_number,
+                    userid:this.userid,
+                    newwarehouse:this.requirement_new_newwarehouse,
+                  }
+                }).then(res => {
+                    this.getRequirementByUserid()
                     this.requirement_new_newwarehouse = res.data.data 
                 })
             },
