@@ -61,7 +61,7 @@
         </div> -->
 
         <!-- 添加用户 -->
-        <div class="actions">
+        <div class="actions"  v-if="permission === 'administrator' ">
           <div class="actions_title">添加用户</div>
           <div class="actions_part">
             <div class="actions_part_text">用户id</div>
@@ -86,8 +86,8 @@
           <button class="actions_button" @click="addUser">执行</button>
         </div>
 
-        <!-- 修改用户 TODO -->
-        <div class="actions">
+        <!-- 修改用户 -->
+        <div class="actions"  v-if="permission === 'administrator' ">
           <div class="actions_title">修改用户</div>
           <div class="actions_part">
             <div class="actions_part_text">原用户名id</div>
@@ -222,13 +222,13 @@
       </div>
 
       <!-- 搜索栏 -->
-      <div class="searchbar">
+      <div class="searchbar" >
         <div id="searchbar_user">
           <div class="searchbar_part">
             <div class="searchbar_title">{{search_title}}</div>
             <input type="text" class="searchbar_input1" v-model="search1">
           </div>
-          <div class="searchbar_part">
+          <div class="searchbar_part" v-if="permission === 'administrator' ">
             <div class="searchbar_title">{{search_title2}}</div>
             <select id="searchbar_select" v-model="search2">
               <option value="normal">normal</option>
@@ -237,14 +237,15 @@
           </div>
           <div class="searchbar_part">
             <button class="searchbar_button" v-if="permission === 'administrator' " @click="getUser">搜索用户</button>
-            <button class="searchbar_button" @click="getStorage">搜索记录</button>
+            <button class="searchbar_button" v-if="permission === 'administrator' " @click="getStorage">搜索记录</button>
+            <button class="searchbar_button" @click="getRequirement">搜索申请</button>
           </div>
         </div>
       </div>
 
       <!-- 展示表格 -->
       <!-- 用户表 -->
-      <table class="table">
+      <table class="table"  v-if="permission === 'administrator' ">
         <tr>
           <td class="table_title">ID</td>
           <td class="table_title">用户名</td>
@@ -312,6 +313,32 @@
           <td class="table_unit">{{item.location}}</td>
         </tr>
       </table>
+
+      <!-- 申请表 -->
+      <table class="table">
+        <tr>
+          <td class="table_title">ID</td>
+          <td class="table_title">类型</td>
+          <td class="table_title">物品</td>
+          <td class="table_title">数量</td>
+          <td class="table_title">仓库</td>
+          <td class="table_title">申请人</td>
+          <td class="table_title">申请时间</td>
+          <td class="table_title">状态</td>
+          <td class="table_title">新仓库</td>
+        </tr>
+        <tr v-for="item in requirements">
+          <td class="table_unit">{{item.id}}</td>
+          <td class="table_unit">{{item.type}}</td>
+          <td class="table_unit">{{item.itemname}}</td>
+          <td class="table_unit">{{item.number}}</td>
+          <td class="table_unit">{{item.warehousename}}</td>
+          <td class="table_unit">{{item.username}}</td>
+          <td class="table_unit">{{item.datetime}}</td>
+          <td class="table_unit">{{item.state}}</td>
+          <td class="table_unit">{{item.newwarehousename}}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </body>
@@ -333,7 +360,7 @@
           login_if:true,
 
           //搜索数据
-          search_title:"物品名称",
+          search_title:"用户id",
           search_title2:"仓库名称",
           search1:"",
           search2:"",
@@ -382,6 +409,9 @@
           user_message:"",
           user_message2:"",
 
+          //申请
+          requirements:[],
+          requirement_user_id:"",
         },
         methods: {
             login() {
@@ -538,6 +568,42 @@
             },
 
             setWarehouse() {
+                axios.get("http://localhost:4006/setWarehouse",{
+                  params:{
+                    newname:this.warehouse_new_name,
+                    location:this.warehouse_new_location,
+                    name:this.warehouse_org_name,
+                  }
+                }).then(res => {
+                    this.getWarehouse()
+                    this.item_message2 = res.data.data 
+                })
+            },
+
+            getRequirement() {
+                axios.get("http://localhost:4006/requirement",{
+                  params:{
+                    userid:this.search1,
+                  }
+                }).then(res => {
+                    console.log(res.data.data)
+                    this.requirements = res.data.data
+                })
+            },
+
+            addRequirement() {
+                axios.get("http://localhost:4006/addWarehouse",{
+                  params:{
+                    name:this.warehouse_name,
+                    location:this.warehouse_location,
+                  }
+                }).then(res => {
+                    this.getWarehouse()
+                    this.warehouse_message = res.data.data 
+                })
+            },
+
+            setRequirement() {
                 axios.get("http://localhost:4006/setWarehouse",{
                   params:{
                     newname:this.warehouse_new_name,

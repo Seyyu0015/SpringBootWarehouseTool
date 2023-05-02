@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Seyyu
@@ -35,17 +36,50 @@ public class RequirementServiceImp implements RequirementService {
         List<Requirement> result = new ArrayList<>();
 
         //应用筛选
-        if (!requirementList.isEmpty() && !userid.isEmpty()){
+        if (!requirementList.isEmpty() && !userid.equals("")){
             for(Requirement r : requirementList){
                 User user = requirementMapper.selectUserByUserId(userid);
-                if(r.getUserid() == user.getId()){
+                if(r.getUserid().equals(user.getUserid())){
                     result.add(r);
                 }
             }
         }else {
             result = requirementList;
         }
-        return CommonResult.success(result);
+
+        //后期处理
+        List<RequirementDisplay> new_result = new ArrayList<>();
+        for(Requirement r : result){
+            if(r.getNewwarehouseid()==0){
+                RequirementDisplay rd = new RequirementDisplay(
+                        r.getId(),
+                        r.getType(),
+                        infMapper.selectItemById(r.getItemid()).getItemname(),
+                        infMapper.selectWarehouseById(r.getWarehouseid()).getName(),
+                        r.getNumber(),
+                        infMapper.selectUserByUserId(r.getUserid()).getUsername(),
+                        r.getDatetime(),
+                        r.getState(),
+                        ""
+                );
+                new_result.add(rd);
+            }else {
+                RequirementDisplay rd = new RequirementDisplay(
+                        r.getId(),
+                        r.getType(),
+                        infMapper.selectItemById(r.getItemid()).getItemname(),
+                        infMapper.selectWarehouseById(r.getWarehouseid()).getName(),
+                        r.getNumber(),
+                        infMapper.selectUserByUserId(r.getUserid()).getUsername(),
+                        r.getDatetime(),
+                        r.getState(),
+                        infMapper.selectWarehouseById(r.getNewwarehouseid()).getName()
+                );
+                new_result.add(rd);
+            }
+
+        }
+        return CommonResult.success(new_result);
     }
 
     @Override

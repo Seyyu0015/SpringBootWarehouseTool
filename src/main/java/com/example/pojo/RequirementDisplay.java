@@ -13,15 +13,15 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Requirement {
+public class RequirementDisplay {
     private int id;
     private String type;
-    private int itemid;
-    private int warehouseid;
+    private String itemname;
+    private String warehousename;
     private int number;
-    private String userid;
+    private String username;
     private Date datetime;
     private String state;
-    private int newwarehouseid;
+    private String newwarehousename;
 
 }
