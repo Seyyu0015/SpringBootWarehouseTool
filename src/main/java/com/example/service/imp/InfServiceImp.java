@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class InfServiceImp implements InfService {
         }else {
             result = users;
         }
+        Collections.reverse(result);
         return CommonResult.success(result);
 
     }
@@ -101,6 +103,7 @@ public class InfServiceImp implements InfService {
                 result.add(sd);
             }
         }
+        Collections.reverse(result);
         return CommonResult.success(result);
     }
 

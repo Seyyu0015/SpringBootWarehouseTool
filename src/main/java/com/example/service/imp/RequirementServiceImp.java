@@ -11,10 +11,7 @@ import com.example.service.RequirementService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Seyyu
@@ -83,6 +80,7 @@ public class RequirementServiceImp implements RequirementService {
             }
 
         }
+        Collections.reverse(new_result);
         return CommonResult.success(new_result);
     }
 
