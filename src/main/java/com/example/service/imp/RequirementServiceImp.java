@@ -39,6 +39,10 @@ public class RequirementServiceImp implements RequirementService {
         if (!requirementList.isEmpty() && !userid.equals("")){
             for(Requirement r : requirementList){
                 User user = requirementMapper.selectUserByUserId(userid);
+                if(user == null){
+                    List<Requirement> nullresult = new ArrayList<>();
+                    return CommonResult.success(nullresult);
+                }
                 if(r.getUserid().equals(user.getUserid())){
                     result.add(r);
                 }
